@@ -21,6 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:es": "eslint 'src/**/**.{ts,tsx,js,jsx}'",
+    "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "prettier": "prettier -c --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "commit": "git-cz"
   },
   "eslintConfig": {
@@ -53,6 +55,9 @@
     "@commitlint/config-conventional": "^9.1.1",
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "^3.2.0",
-    "eslint-config-airbnb-typescript": "^8.0.2"
+    "eslint-config-airbnb-typescript": "^8.0.2",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
   }
 }
