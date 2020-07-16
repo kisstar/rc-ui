@@ -26,7 +26,9 @@
     "commit": "git-cz"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      ".eslintrc"
+    ]
   },
   "config": {
     "commitizen": {
