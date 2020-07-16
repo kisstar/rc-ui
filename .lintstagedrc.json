@@ -1,0 +1,5 @@
+{
+  "*.{css,scss}": ["yarn run lint:style"],
+  "*.{js,jsx,ts,tsx}": ["yarn run lint:es"],
+  "**/*.{js,jsx,ts,tsx,json,css,scss,md}": ["yarn run prettier"]
+}
