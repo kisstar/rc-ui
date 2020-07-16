@@ -2,5 +2,6 @@
   "**/*.{htm,html}": ["yarn run lint:html"],
   "*.{css,scss}": ["yarn run lint:style"],
   "*.{js,jsx,ts,tsx}": ["yarn run lint:es"],
+  "*.md": ["yarn run lint:md"],
   "**/*.{js,jsx,ts,tsx,json,css,scss,md}": ["yarn run prettier"]
 }
