@@ -26,7 +26,8 @@
     "lint:md": "markdownlint **/*.md",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prettier": "prettier -c --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "standard-version"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +76,7 @@
     "markdownlint": "^0.20.4",
     "markdownlint-cli": "^0.23.2",
     "prettier": "^2.0.5",
+    "standard-version": "^8.0.2",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-rational-order": "^0.1.2",
