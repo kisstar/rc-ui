@@ -16,6 +16,12 @@
         "border-in-box-model": false,
         "empty-line-between-groups": false
       }
+    ],
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": ["BlinkMacSystemFont", "Roboto", "Arial", "Consolas", "Menlo", "Courier"]
+      }
     ]
   }
 }
