@@ -20,8 +20,8 @@
     "eject": "react-scripts eject",
     "lint": "yarn run lint:html && yarn run lint:style && yarn run lint:es && yarn run lint:md && yarn run lint:prettier",
     "lint:html": "htmlhint --config .htmlhintrc.json public/**/*.{htm,html}",
-    "lint:style": "stylelint 'src/**/*.{css,scss}'",
-    "lint:es": "eslint 'src/**/**.{ts,tsx,js,jsx}'",
+    "lint:style": "stylelint \"src/**/*.{css,scss}\"",
+    "lint:es": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "lint:md": "markdownlint **/*.md",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prettier": "prettier -c --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
@@ -47,8 +47,30 @@
   },
   "eslintConfig": {
     "extends": [
-      ".eslintrc"
-    ]
+      "react-app",
+      "airbnb-typescript",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ],
+      "react/jsx-one-expression-per-line": [
+        0
+      ],
+      "react/prop-types": [
+        0
+      ],
+      "@typescript-eslint/indent": [
+        0
+      ]
+    }
   },
   "config": {
     "commitizen": {
@@ -94,7 +116,7 @@
     "lint-staged": ">=10",
     "markdownlint": "^0.20.4",
     "markdownlint-cli": "^0.23.2",
-    "prettier": "^2.0.5",
+    "prettier": "2.0.5",
     "standard-version": "^8.0.2",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
