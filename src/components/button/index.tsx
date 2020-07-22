@@ -6,7 +6,7 @@ import { isUndef } from '../../lib/utils';
 
 export type ButtonHTMLType = 'button' | 'submit' | 'reset';
 
-export type ButtonType = 'default' | 'primary' | 'link';
+export type ButtonType = 'primary' | 'link';
 
 export type ButtonSize = 'large' | 'sm';
 
@@ -39,15 +39,13 @@ const Button: React.FC<ButtonProps> = props => {
     </a>
   );
 
-  if (!isUndef(href)) {
-    return linkNode;
-  }
-
-  return (
+  const buttonNode = (
     <button type={htmlType} className={classes} disabled={disabled}>
       {children}
     </button>
   );
+
+  return isUndef(href) ? buttonNode : linkNode;
 };
 
 Button.defaultProps = {

@@ -1,0 +1,61 @@
+@import './mixin';
+
+.btn {
+  @include button-color($btn-default-color, $btn-default-bg, $btn-default-border);
+  @include button-size(
+    $btn-padding-y-base,
+    $btn-padding-x-base,
+    $btn-font-size-base,
+    $btn-border-radius
+  );
+
+  white-space: nowrap;
+  text-align: center;
+  background-image: none;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+
+  &.btn-sm {
+    @include button-size(
+      $btn-padding-y-sm,
+      $btn-padding-x-sm,
+      $btn-font-size-sm,
+      $btn-border-radius
+    );
+  }
+
+  &.btn-large {
+    @include button-size(
+      $btn-padding-y-lg,
+      $btn-padding-x-lg,
+      $btn-font-size-lg,
+      $btn-border-radius
+    );
+  }
+
+  &.btn-primary {
+    @include button-color($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  }
+
+  &.btn-danger {
+    @include button-color($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+  }
+
+  &[disabled],
+  &.btn-disabled {
+    @include button-color($btn-disable-color, $btn-disable-bg, $btn-disable-border);
+  }
+
+  &.btn-link {
+    @include button-color($btn-link-color, $btn-link-bg, $btn-link-border);
+
+    &[disabled],
+    &.btn-disabled {
+      @include button-color($btn-disable-color, $btn-link-bg, $btn-link-border);
+    }
+  }
+}

@@ -1,2 +1,7 @@
-@import 'variables';
+@import 'themes/default';
+@import 'layout/default';
 @import 'reboot';
+@import 'common';
+
+// components
+@import '../components/button/style/index';
