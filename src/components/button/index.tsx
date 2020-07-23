@@ -11,36 +11,45 @@ export type ButtonType = 'primary' | 'link';
 export type ButtonSize = 'large' | 'sm';
 
 export interface BaseButtonProps {
-  htmlType?: ButtonHTMLType;
   type?: ButtonType;
   size?: ButtonSize;
-  href?: string;
   danger?: boolean;
-  disabled?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
 
-export type ButtonProps = BaseButtonProps;
+export type AnchorButtonProps = {
+  href: string;
+  target?: string;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+} & BaseButtonProps &
+  Omit<React.AnchorHTMLAttributes<HTMLElement>, 'type' | 'onClick'>;
+
+export type NativeButtonProps = {
+  htmlType?: ButtonHTMLType;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+} & BaseButtonProps &
+  Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type' | 'onClick'>;
+
+export type ButtonProps = Partial<AnchorButtonProps & NativeButtonProps>;
 
 const Button: React.FC<ButtonProps> = props => {
-  const { htmlType, type, size, href, danger, disabled, className, children } = props;
+  const { htmlType, type, size, href, danger, className, children, ...restProps } = props;
 
   const classes = classNames('btn', className, {
     [`btn-${type}`]: type,
     [`btn-${size}`]: size,
     'btn-danger': danger,
-    'btn-disabled': disabled && !isUndef(href),
   });
 
   const linkNode = (
-    <a className={classes} href={href}>
+    <a className={classes} href={href} {...restProps}>
       {children}
     </a>
   );
 
   const buttonNode = (
-    <button type={htmlType} className={classes} disabled={disabled}>
+    <button type={htmlType} className={classes} {...restProps}>
       {children}
     </button>
   );

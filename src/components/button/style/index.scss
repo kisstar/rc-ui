@@ -45,16 +45,17 @@
     @include button-color($btn-danger-color, $btn-danger-bg, $btn-danger-border);
   }
 
-  &[disabled],
-  &.btn-disabled {
+  &[disabled] {
     @include button-color($btn-disable-color, $btn-disable-bg, $btn-disable-border);
+
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   &.btn-link {
     @include button-color($btn-link-color, $btn-link-bg, $btn-link-border);
 
-    &[disabled],
-    &.btn-disabled {
+    &[disabled] {
       @include button-color($btn-disable-color, $btn-link-bg, $btn-link-border);
     }
   }
