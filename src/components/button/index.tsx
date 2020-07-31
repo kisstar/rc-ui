@@ -1,7 +1,8 @@
 /* eslint-disable react/button-has-type */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
+import { ConfigContext } from '../config-provider';
 import { isUndef } from '../../lib/utils';
 
 export type ButtonHTMLType = 'button' | 'submit' | 'reset';
@@ -14,6 +15,7 @@ export interface BaseButtonProps {
   type?: ButtonType;
   size?: ButtonSize;
   danger?: boolean;
+  prefixCls?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -34,12 +36,23 @@ export type NativeButtonProps = {
 export type ButtonProps = Partial<AnchorButtonProps & NativeButtonProps>;
 
 const Button: React.FC<ButtonProps> = props => {
-  const { htmlType, type, size, href, danger, className, children, ...restProps } = props;
-
-  const classes = classNames('btn', className, {
-    [`btn-${type}`]: type,
-    [`btn-${size}`]: size,
-    'btn-danger': danger,
+  const {
+    htmlType,
+    type,
+    size,
+    href,
+    danger,
+    className,
+    children,
+    prefixCls: customizePrefixCls,
+    ...restProps
+  } = props;
+  const { getPrefixCls } = useContext(ConfigContext);
+  const prefixCls = getPrefixCls('btn', customizePrefixCls);
+  const classes = classNames(prefixCls, className, {
+    [`${prefixCls}-${type}`]: type,
+    [`${prefixCls}-${size}`]: size,
+    [`${prefixCls}-danger`]: danger,
   });
 
   const linkNode = (

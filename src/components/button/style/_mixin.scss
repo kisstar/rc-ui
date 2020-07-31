@@ -9,3 +9,7 @@
   font-size: $font-size;
   border-radius: $border-raduis;
 }
+
+@mixin btn-danger-default {
+  @include button-color($error-color, $btn-default-bg, $error-color);
+}

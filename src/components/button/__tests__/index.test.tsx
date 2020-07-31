@@ -8,6 +8,7 @@ describe('Button', () => {
   });
 
   it('should add appropriate classes according to different props', () => {
+    const prefixCls = 'ks-btn';
     const type = 'primary';
     const size = 'large';
     const customClass = 'custom-class';
@@ -18,7 +19,9 @@ describe('Button', () => {
     );
     const element = wrapper.getByText('Button');
     expect(element).toBeInTheDocument();
-    expect(element).toHaveClass(`btn btn-danger btn-${type} btn-${size} ${customClass}`);
+    expect(element).toHaveClass(
+      `${prefixCls} ${prefixCls}-danger ${prefixCls}-${type} ${prefixCls}-${size} ${customClass}`,
+    );
   });
 
   it('should render as link when href is defined', () => {

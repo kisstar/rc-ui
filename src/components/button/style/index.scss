@@ -1,6 +1,8 @@
 @import './mixin';
 
-.btn {
+$btn-prefix-cls: $ks-prefix + '-btn';
+
+.#{$btn-prefix-cls} {
   @include button-color($btn-default-color, $btn-default-bg, $btn-default-border);
   @include button-size(
     $btn-padding-y-base,
@@ -19,7 +21,7 @@
   user-select: none;
   touch-action: manipulation;
 
-  &.btn-sm {
+  &.#{$btn-prefix-cls}-sm {
     @include button-size(
       $btn-padding-y-sm,
       $btn-padding-x-sm,
@@ -28,7 +30,7 @@
     );
   }
 
-  &.btn-large {
+  &.#{$btn-prefix-cls}-large {
     @include button-size(
       $btn-padding-y-lg,
       $btn-padding-x-lg,
@@ -37,12 +39,29 @@
     );
   }
 
-  &.btn-primary {
+  &.#{$btn-prefix-cls}-primary {
     @include button-color($btn-primary-color, $btn-primary-bg, $btn-primary-border);
   }
 
-  &.btn-danger {
-    @include button-color($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+  &.#{$btn-prefix-cls}-link {
+    @include button-color($btn-link-color, $btn-link-bg, $btn-link-border);
+
+    &[disabled] {
+      @include button-color($btn-disable-color, $btn-link-bg, $btn-link-border);
+    }
+  }
+
+  &.#{$btn-prefix-cls}-danger {
+    @include btn-danger-default;
+
+    &.#{$btn-prefix-cls}-link {
+      border-width: 0;
+    }
+
+    &.#{$btn-prefix-cls}-primary {
+      color: $btn-danger-color;
+      background-color: $btn-danger-bg;
+    }
   }
 
   &[disabled] {
@@ -50,13 +69,5 @@
 
     cursor: not-allowed;
     pointer-events: none;
-  }
-
-  &.btn-link {
-    @include button-color($btn-link-color, $btn-link-bg, $btn-link-border);
-
-    &[disabled] {
-      @include button-color($btn-disable-color, $btn-link-bg, $btn-link-border);
-    }
   }
 }
