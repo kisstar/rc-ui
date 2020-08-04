@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfigProvider from './components/config-provider';
 import Button from './components/button';
+import Menu, { Item } from './components/menu';
 import './app.scss';
 
 function App() {
@@ -22,6 +23,22 @@ function App() {
           <Button type="link" disabled href="http://www.baidu.com/">
             Link Href Disabled
           </Button>
+        </div>
+        <div className="menu-container">
+          <Menu>
+            <Item disabled key="1" rootPrefixCls="ks">
+              首页
+            </Item>
+            <Item key="2" rootPrefixCls="ks">
+              GitHub
+            </Item>
+            <Item key="3" rootPrefixCls="ks">
+              博客
+            </Item>
+            <Item key="4" rootPrefixCls="ks">
+              笔记
+            </Item>
+          </Menu>
         </div>
       </ConfigProvider>
     </div>
