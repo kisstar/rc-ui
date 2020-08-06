@@ -35,6 +35,9 @@ $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-800 !default;
 
+// 文字
+$text-color: $gray-900 !default;
+
 // 状态
 $disabled-color: $gray-500 !default;
 $disabled-bg: hsl(0, 0, 96%) !default;
@@ -45,14 +48,14 @@ $border-color-base: hsl(0, 0, 85%) !default;
 
 // body
 $body-bg: $white !default;
-$body-color: $gray-900 !default;
+$body-color: $text-color !default;
 
 // 链接
 $link-color: $primary !default;
 $link-hover-color: darken($link-color, 15%) !default;
 
 // button
-$btn-default-color: $body-color !default;
+$btn-default-color: $text-color !default;
 $btn-default-bg: $body-bg !default;
 $btn-default-border: $border-color-base !default;
 
@@ -71,3 +74,13 @@ $btn-link-border: transparent !default;
 $btn-disable-color: $disabled-color !default;
 $btn-disable-bg: $disabled-bg !default;
 $btn-disable-border: $border-color-base !default;
+
+// menu
+$menu-bg: $white;
+
+$menu-item-color: $text-color;
+$menu-item-border: $border-color-base;
+
+$menu-item-disable-color: $disabled-color;
+
+$menu-item-active-border: $primary;

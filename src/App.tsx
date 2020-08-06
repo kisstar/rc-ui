@@ -25,7 +25,7 @@ function App() {
           </Button>
         </div>
         <div className="menu-container">
-          <Menu>
+          <Menu mode="vertiacal">
             <Item disabled key="1" rootPrefixCls="ks">
               首页
             </Item>

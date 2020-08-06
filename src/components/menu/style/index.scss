@@ -1,0 +1,60 @@
+$menu-prefix-cls: $ks-prefix + '-menu';
+
+.#{$menu-prefix-cls} {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  color: $menu-item-color;
+  line-height: 46px;
+  list-style: none;
+  background: $menu-bg;
+  outline: none;
+
+  &.#{$menu-prefix-cls}-horizontal {
+    border-bottom: 1px solid $menu-item-border;
+  }
+
+  &.#{$menu-prefix-cls}-vertiacal {
+    flex-direction: column;
+
+    .#{$menu-prefix-cls}-item {
+      border-right: 1px solid $menu-item-border;
+    }
+  }
+}
+
+.#{$menu-prefix-cls}-item {
+  position: relative;
+  padding: 0 20px;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: $menu-item-active-border;
+    transition-timing-function: ease-out;
+    transition-duration: 0.3s;
+    transition-property: right;
+    content: '';
+  }
+
+  &:hover {
+    &::before {
+      right: 0;
+    }
+  }
+
+  &.#{$menu-prefix-cls}-item-selected {
+    &::before {
+      right: 0;
+    }
+  }
+
+  &.#{$menu-prefix-cls}-item-disabled {
+    color: $menu-item-disable-color;
+    cursor: not-allowed;
+  }
+}
