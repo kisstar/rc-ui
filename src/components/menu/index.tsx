@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 import classNames from 'classnames';
 import { ConfigContext } from '../config-provider';
-import MenuContext from './MenuContext';
 import { noop } from '../../lib/utils';
 import { MenuItemProps, MenuInfo, MenuClickEventHandler } from './MenuItem';
 
 export { default as Item } from './MenuItem';
 
-type MenuMode = 'horizontal' | 'vertiacal';
+type MenuMode = 'horizontal' | 'vertical';
 
 export interface MenuProps {
   mode?: MenuMode;
@@ -34,27 +33,28 @@ const Menu: React.FC<MenuProps> = props => {
   const classes = classNames(prefixCls, className, `${prefixCls}-${mode}`);
 
   return (
-    <MenuContext.Provider value={{ key: selectedKey }}>
-      <ul role="menu" className={classes} style={style}>
-        {React.Children.map(children, child => {
-          const childElement = child as React.FunctionComponentElement<MenuItemProps>;
-          const { type, key } = childElement;
-          const { displayName } = type;
+    <ul role="menu" className={classes} style={style}>
+      {React.Children.map(children, child => {
+        const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+        const { type, key } = childElement;
+        const { displayName } = type;
+        const strKey = key as string;
 
-          if (displayName === '__KS_MenuItem__') {
-            return React.cloneElement(childElement, {
-              isSelected: key === selectedKey,
-              onClick: (info: MenuInfo) => {
-                onSelect!(info);
-                setSelectedKey(key ? key.toString() : '');
-              },
-              rootPrefixCls: prefixCls,
-            });
-          }
-          throw Error("Menu's child can only be MenuItem or SubMenu");
-        })}
-      </ul>
-    </MenuContext.Provider>
+        if (displayName === '__KS_MenuItem__') {
+          return React.cloneElement(childElement, {
+            isSelected: strKey === selectedKey,
+            selectedKey: strKey,
+            onClick: (info: MenuInfo) => {
+              onSelect!(info);
+              setSelectedKey(strKey);
+            },
+            rootPrefixCls: prefixCls,
+          });
+        }
+
+        throw Error("Menu's child can only be MenuItem or SubMenu");
+      })}
+    </ul>
   );
 };
 

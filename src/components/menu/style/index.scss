@@ -14,7 +14,7 @@ $menu-prefix-cls: $ks-prefix + '-menu';
     border-bottom: 1px solid $menu-item-border;
   }
 
-  &.#{$menu-prefix-cls}-vertiacal {
+  &.#{$menu-prefix-cls}-vertical {
     flex-direction: column;
 
     .#{$menu-prefix-cls}-item {

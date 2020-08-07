@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu renders correctly 1`] = `
+<Menu
+  defaultSelectedKey="1"
+  mode="horizontal"
+  onSelect={[Function]}
+>
+  <__KS_MenuItem__>
+    Active
+  </__KS_MenuItem__>
+  <__KS_MenuItem__>
+    Normal
+  </__KS_MenuItem__>
+  <__KS_MenuItem__
+    disabled={true}
+  >
+    Disabled
+  </__KS_MenuItem__>
+</Menu>
+`;

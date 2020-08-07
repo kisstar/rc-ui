@@ -1,9 +1,8 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
-import MenuContext from './MenuContext';
 
 export interface MenuInfo {
-  key: string;
+  selectedKey: string;
   domEvent: React.MouseEvent<HTMLElement>;
 }
 
@@ -15,13 +14,22 @@ export interface MenuItemProps {
   style?: React.CSSProperties;
   className?: string;
   onClick?: MenuClickEventHandler;
-  rootPrefixCls: string;
+  rootPrefixCls?: string;
   isSelected?: boolean;
+  selectedKey?: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = props => {
-  const { rootPrefixCls, className, style, disabled, children, isSelected, onClick } = props;
-  const { key } = useContext(MenuContext);
+  const {
+    rootPrefixCls,
+    className,
+    style,
+    disabled,
+    children,
+    isSelected,
+    selectedKey,
+    onClick,
+  } = props;
   const classes = classNames(`${rootPrefixCls}-item`, className, {
     [`${rootPrefixCls}-item-disabled`]: disabled,
     [`${rootPrefixCls}-item-selected`]: isSelected,
@@ -29,25 +37,25 @@ const MenuItem: React.FC<MenuItemProps> = props => {
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLLIElement>) => {
       const info = {
-        key,
+        selectedKey: selectedKey as string,
         domEvent: e,
       };
       if (!disabled) {
         onClick!(info);
       }
     },
-    [key, disabled, onClick],
+    [selectedKey, disabled, onClick],
   );
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLElement>): boolean | undefined => {
       const { keyCode } = e;
       if (keyCode === 13 && !disabled) {
-        onClick!({ key, domEvent: e as any });
+        onClick!({ selectedKey: selectedKey as string, domEvent: e as any });
         return true;
       }
       return undefined;
     },
-    [key, disabled, onClick],
+    [selectedKey, disabled, onClick],
   );
 
   return (

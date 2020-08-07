@@ -25,19 +25,13 @@ function App() {
           </Button>
         </div>
         <div className="menu-container">
-          <Menu mode="vertiacal">
-            <Item disabled key="1" rootPrefixCls="ks">
+          <Menu mode="vertical">
+            <Item disabled key="1">
               首页
             </Item>
-            <Item key="2" rootPrefixCls="ks">
-              GitHub
-            </Item>
-            <Item key="3" rootPrefixCls="ks">
-              博客
-            </Item>
-            <Item key="4" rootPrefixCls="ks">
-              笔记
-            </Item>
+            <Item key="2">GitHub</Item>
+            <Item key="3">博客</Item>
+            <Item key="4">笔记</Item>
           </Menu>
         </div>
       </ConfigProvider>

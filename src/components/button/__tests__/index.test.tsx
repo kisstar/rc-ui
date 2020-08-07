@@ -1,11 +1,14 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import mountTest from '../../../tests/mountTest';
 import Button from '..';
 
 describe('Button', () => {
   it('renders correctly', () => {
     expect(<Button>Follow</Button>).toMatchSnapshot();
   });
+
+  mountTest(() => <Button>Button</Button>);
 
   it('should add appropriate classes according to different props', () => {
     const prefixCls = 'ks-btn';
@@ -49,13 +52,5 @@ describe('Button', () => {
       }),
     );
     expect(handler).not.toHaveBeenCalled();
-  });
-
-  it('should update and unmount without errors', () => {
-    const wrapper = render(<Button>Button</Button>);
-    expect(() => {
-      wrapper.rerender(<Button>Button</Button>);
-      wrapper.unmount();
-    }).not.toThrow();
   });
 });
