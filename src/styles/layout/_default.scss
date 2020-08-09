@@ -22,8 +22,9 @@ $font-family-base: $font-family !default;
 // 字体大小
 $font-size-root: null !default;
 $font-size-base: 1rem !default;
-$font-size-sm: $font-size-base * 0.875 !default;
 $font-size-lg: $font-size-base * 1.25 !default;
+$font-size-sm: $font-size-base * 0.875 !default;
+$font-size-xs: $font-size-base * 0.75 !default;
 
 // 字重
 $font-weight-lighter: lighter !default;
@@ -62,3 +63,15 @@ $btn-padding-x-base: $p-md !default;
 $btn-font-size-lg: $font-size-base !default;
 $btn-padding-y-lg: (2.5rem - $btn-font-size-lg) / 2 !default;
 $btn-padding-x-lg: $p-lg !default;
+
+// menu
+$menu-height: 2.875rem !default;
+$menu-size: $font-size-sm !default;
+
+$menu-item-size: $font-size-xs !default;
+$menu-item-px: 1.25rem !default;
+$menu-item-active-border-bottom-size: 0.125rem !default;
+
+$menu-drop-content-mt: 0.375rem;
+$menu-drop-item-mb: 0.125rem !default;
+$menu-drop-content-border-radius-width: 0.25rem !default;

@@ -1,3 +1,5 @@
+@import './mixin';
+
 $menu-prefix-cls: $ks-prefix + '-menu';
 
 .#{$menu-prefix-cls} {
@@ -5,56 +7,121 @@ $menu-prefix-cls: $ks-prefix + '-menu';
   margin: 0;
   padding: 0;
   color: $menu-item-color;
-  line-height: 46px;
+  font-size: $menu-size;
+  line-height: $menu-height;
   list-style: none;
   background: $menu-bg;
   outline: none;
 
-  &.#{$menu-prefix-cls}-horizontal {
-    border-bottom: 1px solid $menu-item-border;
-  }
-
   &.#{$menu-prefix-cls}-vertical {
     flex-direction: column;
 
-    .#{$menu-prefix-cls}-item {
+    .#{$menu-prefix-cls}-item,
+    .#{$menu-prefix-cls}-submenu {
       border-right: 1px solid $menu-item-border;
     }
   }
 }
 
-.#{$menu-prefix-cls}-item {
-  position: relative;
-  padding: 0 20px;
+.#{$menu-prefix-cls}-item,
+.#{$menu-prefix-cls}-submenu-title {
+  padding: 0 $menu-item-px;
+  white-space: nowrap;
   cursor: pointer;
-
-  &::before {
-    position: absolute;
-    right: 100%;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background: $menu-item-active-border;
-    transition-timing-function: ease-out;
-    transition-duration: 0.3s;
-    transition-property: right;
-    content: '';
-  }
+  transition: all 0.3s ease-out;
 
   &:hover {
+    color: $menu-item-color;
+  }
+}
+
+.#{$menu-prefix-cls}-horizontal {
+  border-bottom: 1px solid $menu-item-border;
+
+  .#{$menu-prefix-cls}-item {
+    @include borer-slide-right;
+  }
+
+  .#{$menu-prefix-cls}-item-selected {
+    color: $menu-item-color;
+
     &::before {
       right: 0;
     }
   }
 
-  &.#{$menu-prefix-cls}-item-selected {
+  .#{$menu-prefix-cls}-item-disabled {
+    @include menu-item-disabled;
+
     &::before {
-      right: 0;
+      display: none;
     }
   }
+}
 
-  &.#{$menu-prefix-cls}-item-disabled {
-    color: $menu-item-disable-color;
-    cursor: not-allowed;
+.#{$menu-prefix-cls}-vertical {
+  .#{$menu-prefix-cls}-item-disabled {
+    @include menu-item-disabled;
+  }
+
+  .#{$menu-prefix-cls}-submenu {
+    .#{$menu-prefix-cls}-vertical {
+      position: static;
+    }
+  }
+}
+
+.#{$menu-prefix-cls}-submenu {
+  position: relative;
+  transition: all 0.3s ease-out;
+
+  &.#{$menu-prefix-cls}-submenu-open,
+  &.#{$menu-prefix-cls}-submenu-selected {
+    color: $menu-item-color;
+  }
+
+  &.#{$menu-prefix-cls}-submenu-disabled {
+    @include menu-item-disabled;
+  }
+
+  .#{$menu-prefix-cls}-submenu-title {
+    outline: none;
+  }
+
+  .#{$menu-prefix-cls} {
+    border-radius: $menu-drop-content-border-radius-width;
+    box-shadow: $menu-drop-content-box-shadow;
+  }
+
+  .#{$menu-prefix-cls}-vertical {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 100%;
+    margin-top: $menu-drop-content-mt;
+  }
+
+  .#{$menu-prefix-cls}-item {
+    left: 1px;
+    margin-left: -1px;
+    font-size: $menu-item-size;
+
+    &:not(:last-child) {
+      margin-bottom: $menu-drop-item-mb;
+    }
+
+    &:hover {
+      color: initial;
+      background-color: $menu-item-active-bg;
+    }
+
+    &::before {
+      display: none;
+    }
+
+    &.#{$menu-prefix-cls}-item-selected {
+      color: initial;
+      background-color: $menu-item-active-bg;
+    }
   }
 }

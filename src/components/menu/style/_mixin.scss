@@ -1,0 +1,25 @@
+@mixin borer-slide-right {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    left: 0;
+    height: $menu-item-active-border-bottom-size;
+    background: $menu-item-active-border;
+    transition: right 0.3s ease-out;
+    content: '';
+  }
+
+  &:hover {
+    &::before {
+      right: 0;
+    }
+  }
+}
+
+@mixin menu-item-disabled {
+  color: $menu-item-disable-color;
+  cursor: not-allowed;
+}

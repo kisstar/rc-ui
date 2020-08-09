@@ -25,7 +25,7 @@ $black: #000 !default;
 
 // 产品色板 - 品牌色
 $primary: $cyan !default;
-$secondary: $gray-600 !default;
+$secondary: #e6fffe !default;
 
 // 产品色板 - 功能色板
 $success: $green !default;
@@ -76,11 +76,12 @@ $btn-disable-bg: $disabled-bg !default;
 $btn-disable-border: $border-color-base !default;
 
 // menu
-$menu-bg: $white;
+$menu-bg: $white !default;
 
-$menu-item-color: $text-color;
-$menu-item-border: $border-color-base;
+$menu-item-color: $text-color !default;
+$menu-item-disable-color: $disabled-color !default;
+$menu-item-border: $border-color-base !default;
+$menu-item-active-border: $primary !default;
+$menu-item-active-bg: $secondary !default;
 
-$menu-item-disable-color: $disabled-color;
-
-$menu-item-active-border: $primary;
+$menu-drop-content-box-shadow: 0 1px 6px hsla(0, 0%, 39%, 0.2) !default;

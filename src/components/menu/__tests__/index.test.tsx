@@ -57,9 +57,16 @@ describe('Menu', () => {
     fireEvent.click(normalItem);
     expect(normalItem).toHaveClass(activeClass);
     expect(activeElement).not.toHaveClass(activeClass);
-    expect(testProps.onSelect).toHaveBeenCalledWith(expect.any(Object));
+    expect(testProps.onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({
+        key: '2',
+        domEvent: expect.any(Object),
+      }),
+    );
+    testProps.onSelect.mockRestore();
     fireEvent.click(disabledElement);
     expect(normalItem).toHaveClass(activeClass);
     expect(disabledElement).not.toHaveClass(activeClass);
+    expect(testProps.onSelect).not.toHaveBeenCalledWith(expect.any(Object));
   });
 });

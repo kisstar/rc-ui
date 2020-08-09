@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import classNames from 'classnames';
 import { ConfigContext } from '../config-provider';
 import { noop } from '../../lib/utils';
-import { MenuItemProps, MenuInfo, MenuClickEventHandler } from './MenuItem';
+import MenuContext, { MenuInfo, MenuClickEventHandler, MenuMode } from './MenuContext';
+import SubMenu, { SubMenuProps } from './SubMenu';
+import Item, { MenuItemProps } from './MenuItem';
 
+export { default as SubMenu } from './SubMenu';
 export { default as Item } from './MenuItem';
-
-type MenuMode = 'horizontal' | 'vertical';
 
 export interface MenuProps {
   mode?: MenuMode;
@@ -17,7 +18,12 @@ export interface MenuProps {
   prefixCls?: string;
 }
 
-const Menu: React.FC<MenuProps> = props => {
+interface MenuType extends React.FC<MenuProps> {
+  Item: typeof Item;
+  SubMenu: typeof SubMenu;
+}
+
+const Menu: MenuType = props => {
   const {
     mode,
     defaultSelectedKey,
@@ -32,31 +38,55 @@ const Menu: React.FC<MenuProps> = props => {
   const prefixCls = getPrefixCls('menu', customizePrefixCls);
   const classes = classNames(prefixCls, className, `${prefixCls}-${mode}`);
 
+  const handleClick = useCallback(
+    (info: MenuInfo) => {
+      setSelectedKey(info.key);
+      if (onSelect) {
+        onSelect(info);
+      }
+    },
+    [onSelect],
+  );
+
+  const renderChild = () => {
+    return (
+      <ul role="menu" className={classes} style={style}>
+        {React.Children.map(children, child => {
+          const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+          const { type, key } = childElement;
+          const { displayName } = type;
+          const strKey = key as string;
+
+          if (displayName === '__KS_MenuItem__') {
+            return React.cloneElement(childElement, {
+              eventKey: strKey,
+              rootPrefixCls: prefixCls,
+            });
+          }
+
+          if (displayName === '__KS_SubMenu__') {
+            const subChildElement = child as React.FunctionComponentElement<SubMenuProps>;
+            return React.cloneElement(subChildElement, {
+              eventKey: strKey,
+              rootPrefixCls: prefixCls,
+            });
+          }
+
+          throw Error("Menu's child can only be MenuItem or MenuItem");
+        })}
+      </ul>
+    );
+  };
+
   return (
-    <ul role="menu" className={classes} style={style}>
-      {React.Children.map(children, child => {
-        const childElement = child as React.FunctionComponentElement<MenuItemProps>;
-        const { type, key } = childElement;
-        const { displayName } = type;
-        const strKey = key as string;
-
-        if (displayName === '__KS_MenuItem__') {
-          return React.cloneElement(childElement, {
-            isSelected: strKey === selectedKey,
-            selectedKey: strKey,
-            onClick: (info: MenuInfo) => {
-              onSelect!(info);
-              setSelectedKey(strKey);
-            },
-            rootPrefixCls: prefixCls,
-          });
-        }
-
-        throw Error("Menu's child can only be MenuItem or SubMenu");
-      })}
-    </ul>
+    <MenuContext.Provider value={{ selectedKey, onSelect: handleClick, mode: mode as MenuMode }}>
+      {renderChild()}
+    </MenuContext.Provider>
   );
 };
+
+Menu.Item = Item;
+Menu.SubMenu = SubMenu;
 
 Menu.defaultProps = {
   mode: 'horizontal',

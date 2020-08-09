@@ -1,7 +1,7 @@
 import React from 'react';
 import ConfigProvider from './components/config-provider';
 import Button from './components/button';
-import Menu, { Item } from './components/menu';
+import Menu, { SubMenu, Item } from './components/menu';
 import './app.scss';
 
 function App() {
@@ -25,13 +25,23 @@ function App() {
           </Button>
         </div>
         <div className="menu-container">
-          <Menu mode="vertical">
+          <Menu>
             <Item disabled key="1">
               首页
             </Item>
             <Item key="2">GitHub</Item>
-            <Item key="3">博客</Item>
-            <Item key="4">笔记</Item>
+            <SubMenu title="文章">
+              <Item key="3">文章1</Item>
+              <Item key="4">文章2</Item>
+              <Item key="5">文章3</Item>
+            </SubMenu>
+            <Item key="6">博客</Item>
+            <Item key="7">笔记</Item>
+            <SubMenu title="其它">
+              <Item key="8">a</Item>
+              <Item key="9">b</Item>
+              <Item key="10">c</Item>
+            </SubMenu>
           </Menu>
         </div>
       </ConfigProvider>
