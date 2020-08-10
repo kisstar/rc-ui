@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, wait } from '@testing-library/react';
 import mountTest from '../../../tests/mountTest';
 import Menu, { MenuProps } from '..';
+import SubMenu from '../SubMenu';
 import MenuItem from '../MenuItem';
 
 const genMenu = (props?: MenuProps) => {
@@ -12,6 +13,10 @@ const genMenu = (props?: MenuProps) => {
       <MenuItem key="3" disabled>
         Disabled
       </MenuItem>
+      <SubMenu title="SubItems">
+        <MenuItem key="4">First SubItem</MenuItem>
+        <MenuItem key="5">Second SubItem</MenuItem>
+      </SubMenu>
     </Menu>
   );
 };
@@ -35,7 +40,7 @@ describe('Menu', () => {
     expect(menuElement).toHaveClass(`${prefixCls} ${prefixCls}-horizontal`);
     expect(activeElement).toHaveClass(activeClass);
     expect(disabledElement).toHaveClass(`${prefixCls}-item-disabled`);
-    expect(menuElement.getElementsByTagName('li').length).toEqual(3);
+    expect(menuElement.getElementsByTagName('li').length).toEqual(4);
     expect(menuElement.getElementsByTagName('li')[0]).toHaveClass(`${prefixCls}-item`);
   });
 
@@ -53,20 +58,72 @@ describe('Menu', () => {
     const activeElement = wrapper.getByText('Active');
     const disabledElement = wrapper.getByText('Disabled');
     const normalItem = wrapper.getByText('Normal');
+    const args = expect.objectContaining({
+      key: '2',
+      domEvent: expect.any(Object),
+    });
 
     fireEvent.click(normalItem);
     expect(normalItem).toHaveClass(activeClass);
     expect(activeElement).not.toHaveClass(activeClass);
-    expect(testProps.onSelect).toHaveBeenCalledWith(
-      expect.objectContaining({
-        key: '2',
-        domEvent: expect.any(Object),
-      }),
-    );
+    expect(testProps.onSelect).toHaveBeenCalledWith(args);
     testProps.onSelect.mockRestore();
     fireEvent.click(disabledElement);
     expect(normalItem).toHaveClass(activeClass);
     expect(disabledElement).not.toHaveClass(activeClass);
     expect(testProps.onSelect).not.toHaveBeenCalledWith(expect.any(Object));
+  });
+
+  it('should show dropdown items when hover on subMenu', async () => {
+    const testProps = { onSelect: jest.fn() };
+    const wrapper = render(genMenu(testProps));
+    const subElement = wrapper.getByText('SubItems');
+
+    expect(wrapper.queryByText('First SubItem')).not.toBeInTheDocument();
+    fireEvent.mouseEnter(subElement);
+    await wait(() => {
+      // notice that setTimeout was used in the component before
+      expect(wrapper.queryByText('First SubItem')).toBeInTheDocument();
+    });
+    fireEvent.click(wrapper.getByText('First SubItem'));
+    expect(testProps.onSelect).toHaveBeenCalledWith({
+      key: '4',
+      domEvent: expect.any(Object),
+    });
+    fireEvent.mouseLeave(subElement);
+    await wait(() => {
+      expect(wrapper.queryByText('First SubItem')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should show dropdown items when click on subMenu with mode vertical', async () => {
+    const testProps: MenuProps = {
+      mode: 'vertical',
+      onSelect: jest.fn(),
+    };
+    const wrapper = render(genMenu(testProps));
+    const subElement = wrapper.getByText('SubItems');
+
+    expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
+    fireEvent.mouseEnter(subElement);
+    await wait(() => {
+      expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(subElement);
+    await wait(() => {
+      expect(wrapper.queryByText('Second SubItem')).toBeInTheDocument();
+    });
+
+    fireEvent.click(wrapper.getByText('Second SubItem'));
+    expect(testProps.onSelect).toHaveBeenCalledWith({
+      key: '5',
+      domEvent: expect.any(Object),
+    });
+
+    fireEvent.click(subElement);
+    await wait(() => {
+      expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
+    });
   });
 });

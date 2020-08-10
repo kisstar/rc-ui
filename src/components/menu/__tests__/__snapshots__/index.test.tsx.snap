@@ -17,5 +17,15 @@ exports[`Menu renders correctly 1`] = `
   >
     Disabled
   </__KS_MenuItem__>
+  <__KS_SubMenu__
+    title="SubItems"
+  >
+    <__KS_MenuItem__>
+      First SubItem
+    </__KS_MenuItem__>
+    <__KS_MenuItem__>
+      Second SubItem
+    </__KS_MenuItem__>
+  </__KS_SubMenu__>
 </Menu>
 `;
