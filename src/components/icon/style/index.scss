@@ -1,0 +1,20 @@
+$icon-prefix-cls: $ks-prefix + '-icon';
+
+.#{$icon-prefix-cls} {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: -0.15em;
+  fill: currentColor;
+}
+
+.#{$icon-prefix-cls}-spin {
+  display: inline-block;
+  animation: 1s linear 0s infinite normal none running loadingCircle;
+}
+
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}

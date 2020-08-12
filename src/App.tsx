@@ -2,7 +2,12 @@ import React from 'react';
 import ConfigProvider from './components/config-provider';
 import Button from './components/button';
 import Menu, { SubMenu, Item } from './components/menu';
+import Icon, { createFromIconfontCN } from './components/icon';
 import './app.scss';
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_1847800_xsxhtsd2ixr.js',
+});
 
 function App() {
   return (
@@ -43,6 +48,10 @@ function App() {
               <Item key="10">c</Item>
             </SubMenu>
           </Menu>
+        </div>
+        <div className="icon-container">
+          <Icon icon="link" />
+          <IconFont type="gerenzhongxin" />
         </div>
       </ConfigProvider>
     </div>
