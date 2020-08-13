@@ -7,12 +7,13 @@ export interface MenuItemProps {
   disabled?: boolean;
   style?: React.CSSProperties;
   className?: string;
+  icon?: React.ReactNode;
   rootPrefixCls?: string;
   eventKey?: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = props => {
-  const { rootPrefixCls, className, style, disabled, children, eventKey } = props;
+  const { rootPrefixCls, className, style, disabled, icon, children, eventKey } = props;
   const { onSelect, selectedKey } = useContext(MenuContext);
   const classes = classNames(`${rootPrefixCls}-item`, className, {
     [`${rootPrefixCls}-item-disabled`]: disabled,
@@ -50,6 +51,7 @@ const MenuItem: React.FC<MenuItemProps> = props => {
       onClick={handleClick}
       onKeyDown={onKeyDown}
     >
+      {icon}
       {children}
     </li>
   );

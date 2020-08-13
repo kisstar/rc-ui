@@ -8,6 +8,7 @@ export interface SubMenuProps {
   style?: React.CSSProperties;
   className?: string;
   disabled?: boolean;
+  icon?: React.ReactNode;
   rootPrefixCls?: string;
   eventKey?: string;
 }
@@ -17,7 +18,7 @@ interface SubMenuType extends React.FC<SubMenuProps> {
 }
 
 const SubMenu: SubMenuType = props => {
-  const { rootPrefixCls, style, className, title, disabled, children } = props;
+  const { rootPrefixCls, style, className, title, disabled, icon, children } = props;
   const [isOpened, setIsOpened] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const { mode, selectedKey } = useContext(MenuContext);
@@ -107,6 +108,7 @@ const SubMenu: SubMenuType = props => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
+        {icon}
         {title}
       </div>
       {renderChild()}

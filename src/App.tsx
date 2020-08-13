@@ -33,16 +33,18 @@ function App() {
         </div>
         <div className="menu-container">
           <Menu>
-            <Item disabled key="1">
+            <Item disabled key="1" icon={<Icon icon="link" />}>
               首页
             </Item>
             <Item key="2">GitHub</Item>
-            <SubMenu title="文章">
+            <SubMenu icon={<Icon icon="link" />} title="文章">
               <Item key="3">文章1</Item>
               <Item key="4">文章2</Item>
               <Item key="5">文章3</Item>
             </SubMenu>
-            <Item key="6">博客</Item>
+            <Item icon={<Icon icon="link" />} key="6">
+              博客
+            </Item>
             <Item key="7">笔记</Item>
             <SubMenu title="其它">
               <Item key="8">a</Item>

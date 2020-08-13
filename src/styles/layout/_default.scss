@@ -72,6 +72,9 @@ $menu-item-size: $font-size-xs !default;
 $menu-item-px: 1.25rem !default;
 $menu-item-active-border-bottom-size: 0.125rem !default;
 
-$menu-drop-content-mt: 0.375rem;
+$menu-drop-content-mt: 0.375rem !default;
 $menu-drop-item-mb: 0.125rem !default;
 $menu-drop-content-border-radius-width: 0.25rem !default;
+
+$menu-icon-mr: $m-xs !default;
+$menu-icon-size: $font-size-xs !default;

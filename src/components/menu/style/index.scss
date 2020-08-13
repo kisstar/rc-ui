@@ -1,6 +1,7 @@
 @import './mixin';
 
 $menu-prefix-cls: $ks-prefix + '-menu';
+$icon-prefix-cls: $ks-prefix + '-icon';
 
 .#{$menu-prefix-cls} {
   display: flex;
@@ -20,6 +21,11 @@ $menu-prefix-cls: $ks-prefix + '-menu';
     .#{$menu-prefix-cls}-submenu {
       border-right: 1px solid $menu-item-border;
     }
+  }
+
+  .#{$icon-prefix-cls} {
+    margin-right: $menu-icon-mr;
+    font-size: $menu-icon-size;
   }
 }
 

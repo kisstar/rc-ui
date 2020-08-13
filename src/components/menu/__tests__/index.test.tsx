@@ -4,6 +4,7 @@ import mountTest from '../../../tests/mountTest';
 import Menu, { MenuProps } from '..';
 import SubMenu from '../SubMenu';
 import MenuItem from '../MenuItem';
+import Icon from '../../icon';
 
 const genMenu = (props?: MenuProps) => {
   return (
@@ -125,5 +126,16 @@ describe('Menu', () => {
     await wait(() => {
       expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
     });
+  });
+
+  it('MenuItem should render icon and icon should be the first child when icon exists', () => {
+    const wrapper = render(
+      <Menu>
+        <Menu.Item key="link" icon={<Icon data-testid="link" icon="link" />}>
+          Navigation One
+        </Menu.Item>
+      </Menu>,
+    );
+    expect(expect(wrapper.getByTestId('link')).toBeInTheDocument());
   });
 });
