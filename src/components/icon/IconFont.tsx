@@ -13,12 +13,13 @@ export interface CustomIconOptions {
   scriptUrl?: string | string[];
 }
 
-export interface IconFontProps {
-  type: string;
+export interface IconFontProps<T = string> {
+  type: T;
   className?: string;
   style?: React.CSSProperties;
   spin?: boolean;
   rotate?: number;
+  onClick?: React.MouseEventHandler<SVGSVGElement>;
   prefixCls?: string;
 }
 
@@ -47,7 +48,7 @@ function createScriptUrlElements(scriptUrls: string[], index: number = 0): void 
   }
 }
 
-export default function create(options: CustomIconOptions = {}): React.FC<IconFontProps> {
+export default function create<T>(options: CustomIconOptions = {}): React.FC<IconFontProps<T>> {
   const { scriptUrl = {} } = options;
 
   /**
@@ -70,7 +71,7 @@ export default function create(options: CustomIconOptions = {}): React.FC<IconFo
     }
   }
 
-  const Iconfont: React.FC<IconFontProps> = props => {
+  const Iconfont: React.FC<IconFontProps<T>> = props => {
     const { type, style = {}, className, prefixCls: customizePrefixCls, spin, rotate } = props;
     const { getPrefixCls } = useContext(ConfigContext);
     const prefixCls = getPrefixCls('icon', customizePrefixCls);

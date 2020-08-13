@@ -5,7 +5,9 @@ import Menu, { SubMenu, Item } from './components/menu';
 import Icon, { createFromIconfontCN } from './components/icon';
 import './app.scss';
 
-const IconFont = createFromIconfontCN({
+type IconType = 'gerenzhongxin' | 'listgrid';
+
+const IconFont = createFromIconfontCN<IconType>({
   scriptUrl: '//at.alicdn.com/t/font_1847800_xsxhtsd2ixr.js',
 });
 
