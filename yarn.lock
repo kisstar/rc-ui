@@ -1847,12 +1847,21 @@
   dependencies:
     "@testing-library/dom" "*"
 
-"@types/testing-library__dom@^6.12.1":
+"@types/testing-library__dom@6.14.0", "@types/testing-library__dom@^6.12.1":
   version "6.14.0"
   resolved "https://registry.npm.taobao.org/@types/testing-library__dom/download/@types/testing-library__dom-6.14.0.tgz?cache=0&sync_timestamp=1592998025402&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Ftesting-library__dom%2Fdownload%2F%40types%2Ftesting-library__dom-6.14.0.tgz#1aede831cb4ed4a398448df5a2c54b54a365644e"
   integrity sha1-Gu3oMctO1KOYRI31osVLVKNlZE4=
   dependencies:
     pretty-format "^24.3.0"
+
+"@types/testing-library__react@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.npm.taobao.org/@types/testing-library__react/download/@types/testing-library__react-10.0.0.tgz?cache=0&sync_timestamp=1592998025639&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Ftesting-library__react%2Fdownload%2F%40types%2Ftesting-library__react-10.0.0.tgz#8413a47f435bf7ce50bbc1b6d119300d39aed5bd"
+  integrity sha1-hBOkf0Nb985Qu8G20RkwDTmu1b0=
+  dependencies:
+    "@types/react-dom" "*"
+    "@types/testing-library__dom" "*"
+    pretty-format "^25.1.0"
 
 "@types/testing-library__react@^9.1.2":
   version "9.1.3"
