@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es5",
+    "module": "esnext",
+    "allowJs": true,
+    "jsx": "react",
+    "declaration": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/tests/**",
+    "src/**/*.test.tsx",
+    "src/react-app-env.d.ts",
+    "src/setupTests.ts",
+    "src/App.tsx"
+  ]
+}

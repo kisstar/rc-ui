@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ConfigProvider from './components/config-provider';
 import Button from './components/button';
 import Menu, { SubMenu, Item } from './components/menu';
@@ -62,4 +63,9 @@ function App() {
   );
 }
 
-export default App;
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
