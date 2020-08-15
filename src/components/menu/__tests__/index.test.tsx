@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent, wait } from '@testing-library/react';
 import mountTest from '../../../tests/mountTest';
-import Menu, { MenuProps } from '..';
-import SubMenu from '../SubMenu';
-import MenuItem from '../MenuItem';
-import Icon from '../../icon';
+import { Menu, MenuProps } from '..';
+import { SubMenu } from '../SubMenu';
+import { MenuItem } from '../MenuItem';
+import { Icon } from '../../icon';
 
 const genMenu = (props?: MenuProps) => {
   return (

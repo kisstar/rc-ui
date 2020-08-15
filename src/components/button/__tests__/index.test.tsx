@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import mountTest from '../../../tests/mountTest';
-import Button from '..';
+import { Button } from '..';
 
 describe('Button', () => {
   it('renders correctly', () => {

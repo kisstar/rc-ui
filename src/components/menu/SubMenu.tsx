@@ -4,10 +4,13 @@ import MenuContext from './MenuContext';
 import { MenuItemProps } from './MenuItem';
 
 export interface SubMenuProps {
+  /** 子菜单项值 */
   title: string;
   style?: React.CSSProperties;
   className?: string;
+  /** 是否禁用 */
   disabled?: boolean;
+  /** 菜单图标 */
   icon?: React.ReactNode;
   rootPrefixCls?: string;
   eventKey?: string;
@@ -17,7 +20,7 @@ interface SubMenuType extends React.FC<SubMenuProps> {
   mouseTimeout: any;
 }
 
-const SubMenu: SubMenuType = props => {
+export const SubMenu: SubMenuType = props => {
   const { rootPrefixCls, style, className, title, disabled, icon, children } = props;
   const [isOpened, setIsOpened] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
@@ -72,7 +75,7 @@ const SubMenu: SubMenuType = props => {
 
           keys.push(strKey);
 
-          if (displayName === '__KS_MenuItem__') {
+          if (displayName === 'MenuItem') {
             return React.cloneElement(childElement, {
               eventKey: strKey,
               rootPrefixCls,
@@ -117,7 +120,5 @@ const SubMenu: SubMenuType = props => {
 };
 
 SubMenu.mouseTimeout = 0;
-
-SubMenu.displayName = '__KS_SubMenu__';
 
 export default SubMenu;

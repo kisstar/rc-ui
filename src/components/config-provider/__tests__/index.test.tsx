@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import mountTest from '../../../tests/mountTest';
-import ConfigProvider from '..';
-import Button from '../../button';
+import { ConfigProvider } from '..';
+import { Button } from '../../button';
 
 const prefixCls = 'datura';
 

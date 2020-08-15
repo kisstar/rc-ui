@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Icon, { IconProps, createFromIconfontCN } from '..';
+import { Icon, IconProps, createFromIconfontCN } from '..';
 
 describe('Icon', () => {
   it('should create SVG element.', () => {

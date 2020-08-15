@@ -3,16 +3,19 @@ import classNames from 'classnames';
 import MenuContext from './MenuContext';
 
 export interface MenuItemProps {
+  /** 唯一标志 */
   key: string;
+  /** 是否禁用 */
   disabled?: boolean;
   style?: React.CSSProperties;
   className?: string;
+  /** 菜单图标 */
   icon?: React.ReactNode;
   rootPrefixCls?: string;
   eventKey?: string;
 }
 
-const MenuItem: React.FC<MenuItemProps> = props => {
+export const MenuItem: React.FC<MenuItemProps> = props => {
   const { rootPrefixCls, className, style, disabled, icon, children, eventKey } = props;
   const { onSelect, selectedKey } = useContext(MenuContext);
   const classes = classNames(`${rootPrefixCls}-item`, className, {
@@ -56,7 +59,5 @@ const MenuItem: React.FC<MenuItemProps> = props => {
     </li>
   );
 };
-
-MenuItem.displayName = '__KS_MenuItem__';
 
 export default MenuItem;

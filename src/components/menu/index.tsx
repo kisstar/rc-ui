@@ -3,17 +3,21 @@ import classNames from 'classnames';
 import { ConfigContext } from '../config-provider';
 import { noop } from '../../lib/utils';
 import MenuContext, { MenuInfo, MenuClickEventHandler, MenuMode } from './MenuContext';
-import SubMenu, { SubMenuProps } from './SubMenu';
-import Item, { MenuItemProps } from './MenuItem';
+import { SubMenu, SubMenuProps } from './SubMenu';
+import { MenuItem as Item, MenuItemProps } from './MenuItem';
 
 export { default as SubMenu } from './SubMenu';
 export { default as Item } from './MenuItem';
 
 export interface MenuProps {
+  /** 	菜单类型，现在支持垂直、水平两种 */
   mode?: MenuMode;
+  /** 初始选中的菜单项 key 值 */
   defaultSelectedKey?: string;
+  /** 根节点样式 */
   style?: React.CSSProperties;
   className?: string;
+  /** 被选中时调用 */
   onSelect?: MenuClickEventHandler;
   prefixCls?: string;
 }
@@ -23,7 +27,14 @@ interface MenuType extends React.FC<MenuProps> {
   SubMenu: typeof SubMenu;
 }
 
-const Menu: MenuType = props => {
+/**
+ * 为页面和功能提供导航的菜单列表。
+ *
+ * 导航菜单是一个网站的灵魂，用户依赖导航在各个页面中进行跳转。
+ *
+ * 通常，导航分为顶部导航和侧边导航，顶部导航提供全局性的类目和功能，侧边导航提供多级结构来收纳和排列网站架构。
+ */
+export const Menu: MenuType = props => {
   const {
     mode,
     defaultSelectedKey,
@@ -57,14 +68,14 @@ const Menu: MenuType = props => {
           const { displayName } = type;
           const strKey = key as string;
 
-          if (displayName === '__KS_MenuItem__') {
+          if (displayName === 'MenuItem') {
             return React.cloneElement(childElement, {
               eventKey: strKey,
               rootPrefixCls: prefixCls,
             });
           }
 
-          if (displayName === '__KS_SubMenu__') {
+          if (displayName === 'SubMenu') {
             const subChildElement = child as React.FunctionComponentElement<SubMenuProps>;
             return React.cloneElement(subChildElement, {
               eventKey: strKey,
@@ -72,7 +83,7 @@ const Menu: MenuType = props => {
             });
           }
 
-          throw Error("Menu's child can only be MenuItem or MenuItem");
+          throw Error("Menu's child can only be SubMenu or MenuItem");
         })}
       </ul>
     );
