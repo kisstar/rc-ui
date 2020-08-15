@@ -17,6 +17,7 @@
   "include": ["src"],
   "exclude": [
     "src/tests/**",
+    "src/stories/**",
     "src/**/*.test.tsx",
     "src/react-app-env.d.ts",
     "src/setupTests.ts",
