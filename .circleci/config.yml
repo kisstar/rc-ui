@@ -1,4 +1,5 @@
 version: 2
+
 references:
   container_config: &container_config
     docker:
@@ -7,10 +8,11 @@ references:
   attach_workspace: &attach_workspace
     attach_workspace:
       at: ~/rc-ui
+
 jobs:
   setup:
+    <<: *container_config
     steps:
-      <<: *container_config
       - checkout
       - run: node -v
       - run: yarn -v
@@ -22,25 +24,26 @@ jobs:
       - store_artifacts:
         path: yarn.lock
   lint:
+    <<: *container_config
     steps:
-      <<: *container_config
       - checkout
       - *attach_workspace
       - run: yarn run lint
   test:
-    steps:
-      <<: *container_config
-      environment:
+    <<: *container_config
+    environment:
         CI: true
+    steps:
       - checkout
       - *attach_workspace
-      -run: yarn run test:ci
+      - run: yarn run test:ci
   dist:
+    <<: *container_config
     steps:
-      <<: *container_config
       - checkout
       - *attach_workspace
       - run: yarn run build
+
 workflows:
   version: 2
   build_test:
