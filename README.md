@@ -15,6 +15,7 @@ yarn add @ks/rc-ui
 ## Usage
 
 ```js
+// introduce components on demand
 import { Button } from '@ks/rc-ui';
 
 const App = () => <Button type="primary">CLICK ME</Button>;
@@ -26,11 +27,14 @@ import '@ks/rc-ui/dist/index.css';
 ## Development scripts
 
 ```bash
-# Verify the code format and syntax in the project.
+# verify the code format and syntax in the project.
 yarn lint
 
-# Launches the test runner in the interactive watch mode.
+# launches the test runner in the interactive watch mode.
 yarn test
+
+# write a more friendly commit message
+yarn commit
 ```
 
 ## License
