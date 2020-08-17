@@ -53,11 +53,11 @@ workflows:
             branches:
               ignore: gh-pages
       - lint:
-        requires:
-          - setup
+          requires:
+            - setup
       - test:
-        requires:
-          - lint
+          requires:
+            - lint
       - dist:
-        requires:
-          - test
+          requires:
+            - test
