@@ -1,4 +1,6 @@
 # Rc-UI
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui?ref=badge_shield)
+
 
 UI component library built with React Hooks.
 
@@ -40,3 +42,6 @@ yarn commit
 ## License
 
 [MIT](https://github.com/storybookjs/storybook/blob/master/LICENSE)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui?ref=badge_large)
