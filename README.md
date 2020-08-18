@@ -1,6 +1,6 @@
 # Rc-UI
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui?ref=badge_shield)
 
+[![CircleCI Status][circleci_image][circleci_url]] [![FOSSA Status][fossa_imge]][fossa_url] [![codecov][codecov_image]][codecov_url] [![NPM version][npm_image]][npm_url]
 
 UI component library built with React Hooks.
 
@@ -43,5 +43,13 @@ yarn commit
 
 [MIT](https://github.com/storybookjs/storybook/blob/master/LICENSE)
 
-
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui?ref=badge_large)
+
+[circleci_image]: https://img.shields.io/circleci/build/github/kisstar/rc-ui/master
+[circleci_url]: https://app.circleci.com/pipelines/github/kisstar/rc-ui
+[codecov_image]: https://codecov.io/gh/kisstar/rc-ui/branch/master/graph/badge.svg
+[codecov_url]: https://codecov.io/gh/kisstar/rc-ui
+[fossa_imge]: https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui.svg?type=shield
+[fossa_url]: https://app.fossa.com/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui?ref=badge_shield
+[npm_image]: https://img.shields.io/npm/v/@ks/rc-ui
+[npm_url]: http://npmjs.org/package/@ks/rc-ui
