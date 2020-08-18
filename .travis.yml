@@ -1,0 +1,21 @@
+sudo: false
+
+language: node_js
+
+# use .nvmrc
+# node_js:
+#   - 12
+
+cache:
+  directories:
+    - $HOME/.cache/yarn
+    - node_modules
+
+script:
+  - yarn global add codecov
+  - yarn run lint
+  - yarn run test:cov
+  - yarn run build
+
+after_success:
+  - codecov

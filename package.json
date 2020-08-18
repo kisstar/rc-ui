@@ -37,7 +37,7 @@
     "build-docs": "rimraf ./tmp/docs && yarn build-storybook -o ./tmp/docs",
     "build-storybook": "build-storybook -s public",
     "test": "react-scripts test",
-    "test:cov": "npm test -- --coverage",
+    "test:cov": "yarn test --coverage --watchAll=false",
     "test:ci": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "lint": "concurrently yarn:lint:*",
@@ -97,6 +97,13 @@
         }
       ]
     }
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "src/stories",
+      "src/App.tsx"
+    ]
   },
   "config": {
     "commitizen": {
