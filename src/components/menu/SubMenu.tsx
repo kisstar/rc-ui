@@ -119,6 +119,7 @@ export const SubMenu: SubMenuType = props => {
   );
 };
 
+SubMenu.displayName = 'SubMenu';
 SubMenu.mouseTimeout = 0;
 
 export default SubMenu;

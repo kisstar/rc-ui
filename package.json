@@ -37,6 +37,7 @@
     "build-docs": "rimraf ./tmp/docs && yarn build-storybook -o ./tmp/docs",
     "build-storybook": "build-storybook -s public",
     "test": "react-scripts test",
+    "test:cov": "npm test -- --coverage",
     "test:ci": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "lint": "concurrently yarn:lint:*",
@@ -88,7 +89,13 @@
       "react/jsx-one-expression-per-line": "off",
       "react/prop-types": "off",
       "@typescript-eslint/indent": "off",
-      "react/jsx-props-no-spreading": "off"
+      "react/jsx-props-no-spreading": "off",
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ]
     }
   },
   "config": {

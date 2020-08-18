@@ -18,11 +18,11 @@ jobs:
       - run: yarn -v
       - run: yarn install
       - persist_to_workspace:
-        root: ~/rc-ui
-        paths:
-          - node_modules
+          root: ~/rc-ui
+          paths:
+            - node_modules
       - store_artifacts:
-        path: yarn.lock
+          path: yarn.lock
   lint:
     <<: *container_config
     steps:
@@ -36,7 +36,7 @@ jobs:
     steps:
       - checkout
       - *attach_workspace
-      - run: yarn run test:ci
+      - run: yarn run test
   dist:
     <<: *container_config
     steps:
