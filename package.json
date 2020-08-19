@@ -102,7 +102,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "src/stories",
-      "src/App.tsx"
+      "src/pages",
+      "src/App.tsx",
+      "src/index.tsx"
     ]
   },
   "config": {

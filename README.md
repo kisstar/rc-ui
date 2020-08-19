@@ -1,6 +1,6 @@
 # Rc-UI
 
-[![CircleCI Status][circleci_image][circleci_url]] [![FOSSA Status][fossa_imge]][fossa_url] [![codecov][codecov_image]][codecov_url] [![NPM version][npm_image]][npm_url]
+[![CircleCI Status][circleci_image]][circleci_url] [![FOSSA Status][fossa_imge]][fossa_url] [![codecov][codecov_image]][codecov_url] [![NPM version][npm_image]][npm_url]
 
 UI component library built with React Hooks.
 
@@ -29,10 +29,13 @@ import '@ks/rc-ui/dist/index.css';
 ## Development scripts
 
 ```bash
-# verify the code format and syntax in the project.
+# runs the app in the development mode
+yarn start
+
+# verify the code format and syntax in the project
 yarn lint
 
-# launches the test runner in the interactive watch mode.
+# launches the test runner in the interactive watch mode
 yarn test
 
 # write a more friendly commit message
