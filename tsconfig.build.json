@@ -14,14 +14,6 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": [
-    "src/tests/**",
-    "src/stories/**",
-    "src/**/*.test.tsx",
-    "src/react-app-env.d.ts",
-    "src/setupTests.ts",
-    "src/index.tsx",
-    "src/App.tsx"
-  ]
+  "include": ["src/components", "src/lib", "src/index.tsx"],
+  "exclude": ["src/**/*.test.tsx"]
 }

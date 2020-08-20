@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Home from './pages/Home';
 
-function App() {
-  return <div className="app">Hello world!</div>;
-}
-
-export default App;
+ReactDOM.render(
+  <React.StrictMode>
+    <Home />
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
