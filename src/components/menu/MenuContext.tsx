@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export type MenuMode = 'horizontal' | 'vertical';
+export type MenuMode = 'horizontal' | 'vertical' | 'responsive';
 
 export interface MenuInfo {
   key: string;

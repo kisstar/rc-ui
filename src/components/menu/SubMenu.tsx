@@ -32,12 +32,12 @@ export const SubMenu: SubMenuType = props => {
   });
 
   const handleClick = () => {
-    if (disabled || mode === 'horizontal') return;
+    if (disabled || mode === 'horizontal' || mode === 'responsive') return;
     setIsOpened(!isOpened);
   };
 
   const onKeyDown = () => {
-    if (disabled || mode === 'horizontal') return;
+    if (disabled || mode === 'horizontal' || mode === 'responsive') return;
     setIsOpened(!isOpened);
   };
 

@@ -39,15 +39,21 @@ export const Menu: MenuType = props => {
     mode,
     defaultSelectedKey,
     prefixCls: customizePrefixCls,
-    className,
+    className = '',
     style,
     children,
     onSelect,
   } = props;
   const [selectedKey, setSelectedKey] = useState(defaultSelectedKey || '');
+  const [shouldShow, setShouldShow] = useState(false);
   const { getPrefixCls } = useContext(ConfigContext);
   const prefixCls = getPrefixCls('menu', customizePrefixCls);
-  const classes = classNames(prefixCls, className, `${prefixCls}-${mode}`);
+  const needResponsive = mode === 'responsive';
+  const navClasses = classNames(`${prefixCls}-navbar`, className);
+  const classes = classNames(prefixCls, `${prefixCls}-${mode}`, {
+    [className]: !needResponsive,
+    [`${prefixCls}-show`]: shouldShow,
+  });
 
   const handleClick = useCallback(
     (info: MenuInfo) => {
@@ -87,9 +93,24 @@ export const Menu: MenuType = props => {
 
   return (
     <MenuContext.Provider value={{ selectedKey, onSelect: handleClick, mode: mode as MenuMode }}>
-      <ul role="menu" className={classes} style={style}>
-        {renderChild()}
-      </ul>
+      {needResponsive ? (
+        <nav className={navClasses} style={style}>
+          <button
+            className={`${prefixCls}-toggler`}
+            type="button"
+            onClick={() => setShouldShow(!shouldShow)}
+          >
+            <span className={`${prefixCls}-icon`} />
+          </button>
+          <ul role="menu" className={classes}>
+            {renderChild()}
+          </ul>
+        </nav>
+      ) : (
+        <ul role="menu" className={classes} style={style}>
+          {renderChild()}
+        </ul>
+      )}
     </MenuContext.Provider>
   );
 };

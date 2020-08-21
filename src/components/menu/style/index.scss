@@ -49,7 +49,8 @@ $icon-prefix-cls: $ks-prefix + '-icon';
 }
 
 // for model vertical
-&.#{$menu-prefix-cls}-vertical {
+&.#{$menu-prefix-cls}-vertical,
+.#{$menu-prefix-cls}-responsive {
   flex-direction: column;
   border-right: 1px solid $menu-item-border-color;
 
@@ -137,5 +138,87 @@ $icon-prefix-cls: $ks-prefix + '-icon';
     z-index: $zindex-dropdown;
     min-width: 100%;
     margin-top: $menu-drop-content-mt;
+  }
+}
+
+// start to support responsive
+.#{$menu-prefix-cls}-toggler {
+  padding: 0.25rem 0.75rem;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-color: $menu-toggler-border-color;
+  border-radius: 0.25rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.#{$menu-prefix-cls}-icon {
+  display: inline-block;
+  width: 0.8em;
+  height: 1em;
+  vertical-align: middle;
+  background: no-repeat center center;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-size: 100% 100%;
+}
+
+.#{$menu-prefix-cls}-responsive {
+  &:not(.#{$menu-prefix-cls}-show) {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .#{$menu-prefix-cls}-toggler {
+    display: none;
+  }
+
+  .#{$menu-prefix-cls}-navbar {
+    .#{$menu-prefix-cls}-responsive {
+      display: flex;
+      flex-direction: row;
+      border-right: 0;
+    }
+  }
+
+  .#{$menu-prefix-cls}-responsive {
+    .#{$menu-prefix-cls}-submenu {
+      .#{$menu-prefix-cls}-vertical {
+        position: absolute;
+
+        .#{$menu-prefix-cls}-item-selected {
+          border-right: 0;
+        }
+      }
+    }
+
+    // remove arrow in large screen & horizontal mode
+    .#{$menu-prefix-cls}-submenu-arrow {
+      display: none;
+    }
+
+    // recover border
+    .#{$menu-prefix-cls}-item,
+    .#{$menu-prefix-cls}-submenu {
+      &::before {
+        display: initial;
+      }
+    }
+
+    .#{$menu-prefix-cls}-vertical {
+      .#{$menu-prefix-cls}-item,
+      .#{$menu-prefix-cls}-submenu {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    .#{$menu-prefix-cls}-item-disabled,
+    .#{$menu-prefix-cls}-submenu-disabled {
+      &::before {
+        display: none;
+      }
+    }
   }
 }
