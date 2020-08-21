@@ -15,5 +15,5 @@
     "skipLibCheck": true
   },
   "include": ["src/components", "src/lib", "src/index.tsx"],
-  "exclude": ["src/**/*.test.tsx"]
+  "exclude": ["src/**/*.test.tsx", "src/**/*.demo.tsx"]
 }

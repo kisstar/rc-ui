@@ -79,9 +79,15 @@ $btn-disable-border: $border-color-base !default;
 $menu-bg: $white !default;
 
 $menu-item-color: $text-color !default;
+$menu-item-border-color: $border-color-base !default;
+$menu-submenu-arrow-bg: $text-color;
+
 $menu-item-disable-color: $disabled-color !default;
-$menu-item-border: $border-color-base !default;
+$menu-submenu-arrow-disabled-bg: $disabled-color !default;
+
+$menu-item-active-color: $primary !default;
 $menu-item-active-border: $primary !default;
 $menu-item-active-bg: $secondary !default;
+$menu-submenu-arrow-active-bg: $primary !default;
 
 $menu-drop-content-box-shadow: 0 1px 6px hsla(0, 0%, 39%, 0.2) !default;

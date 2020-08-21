@@ -14,15 +14,6 @@ $icon-prefix-cls: $ks-prefix + '-icon';
   background: $menu-bg;
   outline: none;
 
-  &.#{$menu-prefix-cls}-vertical {
-    flex-direction: column;
-
-    .#{$menu-prefix-cls}-item,
-    .#{$menu-prefix-cls}-submenu {
-      border-right: 1px solid $menu-item-border;
-    }
-  }
-
   .#{$icon-prefix-cls} {
     margin-right: $menu-icon-mr;
     font-size: $menu-icon-size;
@@ -30,65 +21,93 @@ $icon-prefix-cls: $ks-prefix + '-icon';
 }
 
 .#{$menu-prefix-cls}-item,
-.#{$menu-prefix-cls}-submenu-title {
+.#{$menu-prefix-cls}-submenu {
+  @include borer-slide-right;
+
   padding: 0 $menu-item-px;
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s ease-out;
 
   &:hover {
-    color: $menu-item-color;
+    color: $menu-item-active-color;
   }
 }
 
+.#{$menu-prefix-cls}-item-selected,
+.#{$menu-prefix-cls}-submenu-selected {
+  @include menu-ite-active;
+}
+
+.#{$menu-prefix-cls}-item-disabled,
+.#{$menu-prefix-cls}-submenu-disabled {
+  @include menu-item-disabled;
+}
+
 .#{$menu-prefix-cls}-horizontal {
-  border-bottom: 1px solid $menu-item-border;
+  border-bottom: 1px solid $menu-item-border-color;
+}
 
-  .#{$menu-prefix-cls}-item {
-    @include borer-slide-right;
-  }
+// for model vertical
+&.#{$menu-prefix-cls}-vertical {
+  flex-direction: column;
+  border-right: 1px solid $menu-item-border-color;
 
-  .#{$menu-prefix-cls}-item-selected {
-    color: $menu-item-color;
+  .#{$menu-prefix-cls}-submenu {
+    .#{$menu-prefix-cls}-vertical {
+      position: static;
+    }
 
-    &::before {
-      right: 0;
+    .#{$menu-prefix-cls}-item-selected {
+      border-right: 1px solid $menu-item-active-border;
+    }
+
+    // add arrow
+    .#{$menu-prefix-cls}-submenu-title {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      outline: none;
+    }
+
+    .#{$menu-prefix-cls}-submenu-arrow {
+      @include arrow-up;
+
+      position: absolute;
+      top: 50%;
+      right: 16px;
+    }
+
+    &:hover {
+      .#{$menu-prefix-cls}-submenu-arrow {
+        @include arrow-hover;
+      }
+    }
+
+    &.#{$menu-prefix-cls}-submenu-disabled {
+      .#{$menu-prefix-cls}-submenu-arrow {
+        @include arrow-disabled;
+      }
     }
   }
 
-  .#{$menu-prefix-cls}-item-disabled {
-    @include menu-item-disabled;
+  .#{$menu-prefix-cls}-submenu-open {
+    .#{$menu-prefix-cls}-submenu-arrow {
+      @include arrow-down-from-up;
+    }
+  }
 
+  // remove border
+  .#{$menu-prefix-cls}-item,
+  .#{$menu-prefix-cls}-submenu {
     &::before {
       display: none;
     }
   }
 }
 
-.#{$menu-prefix-cls}-vertical {
-  .#{$menu-prefix-cls}-item-disabled {
-    @include menu-item-disabled;
-  }
-
-  .#{$menu-prefix-cls}-submenu {
-    .#{$menu-prefix-cls}-vertical {
-      position: static;
-    }
-  }
-}
-
 .#{$menu-prefix-cls}-submenu {
   position: relative;
-  transition: all 0.3s ease-out;
-
-  &.#{$menu-prefix-cls}-submenu-open,
-  &.#{$menu-prefix-cls}-submenu-selected {
-    color: $menu-item-color;
-  }
-
-  &.#{$menu-prefix-cls}-submenu-disabled {
-    @include menu-item-disabled;
-  }
 
   .#{$menu-prefix-cls}-submenu-title {
     outline: none;
@@ -99,35 +118,24 @@ $icon-prefix-cls: $ks-prefix + '-icon';
     box-shadow: $menu-drop-content-box-shadow;
   }
 
-  .#{$menu-prefix-cls}-vertical {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 100%;
-    margin-top: $menu-drop-content-mt;
-  }
-
   .#{$menu-prefix-cls}-item {
-    left: 1px;
-    margin-left: -1px;
     font-size: $menu-item-size;
 
     &:not(:last-child) {
       margin-bottom: $menu-drop-item-mb;
     }
 
-    &:hover {
-      color: initial;
-      background-color: $menu-item-active-bg;
-    }
-
-    &::before {
-      display: none;
-    }
-
     &.#{$menu-prefix-cls}-item-selected {
-      color: initial;
       background-color: $menu-item-active-bg;
     }
+  }
+
+  .#{$menu-prefix-cls}-vertical {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: $zindex-dropdown;
+    min-width: 100%;
+    margin-top: $menu-drop-content-mt;
   }
 }

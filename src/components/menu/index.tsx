@@ -10,7 +10,7 @@ export { default as SubMenu } from './SubMenu';
 export { default as Item } from './MenuItem';
 
 export interface MenuProps {
-  /** 	菜单类型，现在支持垂直、水平两种 */
+  /** 菜单类型，现在支持垂直、水平两种 */
   mode?: MenuMode;
   /** 初始选中的菜单项 key 值 */
   defaultSelectedKey?: string;
@@ -60,38 +60,36 @@ export const Menu: MenuType = props => {
   );
 
   const renderChild = () => {
-    return (
-      <ul role="menu" className={classes} style={style}>
-        {React.Children.map(children, child => {
-          const childElement = child as React.FunctionComponentElement<MenuItemProps>;
-          const { type, key } = childElement;
-          const { displayName } = type;
-          const strKey = key as string;
+    return React.Children.map(children, child => {
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>;
+      const { type, key } = childElement;
+      const { displayName } = type;
+      const strKey = key as string;
 
-          if (displayName === 'MenuItem') {
-            return React.cloneElement(childElement, {
-              eventKey: strKey,
-              rootPrefixCls: prefixCls,
-            });
-          }
+      if (displayName === 'MenuItem') {
+        return React.cloneElement(childElement, {
+          eventKey: strKey,
+          rootPrefixCls: prefixCls,
+        });
+      }
 
-          if (displayName === 'SubMenu') {
-            const subChildElement = child as React.FunctionComponentElement<SubMenuProps>;
-            return React.cloneElement(subChildElement, {
-              eventKey: strKey,
-              rootPrefixCls: prefixCls,
-            });
-          }
+      if (displayName === 'SubMenu') {
+        const subChildElement = child as React.FunctionComponentElement<SubMenuProps>;
+        return React.cloneElement(subChildElement, {
+          eventKey: strKey,
+          rootPrefixCls: prefixCls,
+        });
+      }
 
-          throw Error("Menu's child can only be SubMenu or MenuItem");
-        })}
-      </ul>
-    );
+      throw Error("Menu's child can only be SubMenu or MenuItem");
+    });
   };
 
   return (
     <MenuContext.Provider value={{ selectedKey, onSelect: handleClick, mode: mode as MenuMode }}>
-      {renderChild()}
+      <ul role="menu" className={classes} style={style}>
+        {renderChild()}
+      </ul>
     </MenuContext.Provider>
   );
 };

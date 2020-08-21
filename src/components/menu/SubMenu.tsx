@@ -111,8 +111,11 @@ export const SubMenu: SubMenuType = props => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {icon}
-        {title}
+        <span>
+          {icon}
+          {title}
+        </span>
+        <i className={`${rootPrefixCls}-submenu-arrow`} />
       </div>
       {renderChild()}
     </li>
