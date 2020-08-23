@@ -2,6 +2,7 @@
 
 exports[`Menu renders correctly 1`] = `
 <Menu
+  data-testid="menu"
   defaultSelectedKey="1"
   mode="horizontal"
   onSelect={[Function]}

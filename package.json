@@ -37,7 +37,7 @@
     "build-page": "react-scripts build",
     "build-docs": "rimraf ./tmp/docs && build-storybook -s public -o ./tmp/docs",
     "test": "react-scripts test",
-    "test:cov": "yarn test --coverage --watchAll=false",
+    "test:cov": "rimraf ./coverage && yarn test --coverage --watchAll=false",
     "test:ci": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "lint": "concurrently yarn:lint:*",
@@ -102,6 +102,7 @@
       "/node_modules/",
       "src/stories",
       "src/pages",
+      "\\.demo\\.tsx",
       "src/App.tsx",
       "src/index.tsx"
     ]

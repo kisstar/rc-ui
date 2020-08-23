@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, wait } from '@testing-library/react';
 import mountTest from '../../../tests/mountTest';
+import { getStyleStr } from '../../../tests/utils';
 import { Menu, MenuProps } from '..';
 import { SubMenu } from '../SubMenu';
 import { MenuItem } from '../MenuItem';
@@ -8,7 +9,7 @@ import { Icon } from '../../icon';
 
 const genMenu = (props?: MenuProps) => {
   return (
-    <Menu defaultSelectedKey="1" {...props}>
+    <Menu data-testid="menu" defaultSelectedKey="1" {...props}>
       <MenuItem key="1">Active</MenuItem>
       <MenuItem key="2">Normal</MenuItem>
       <MenuItem key="3" disabled>
@@ -75,6 +76,19 @@ describe('Menu', () => {
     expect(testProps.onSelect).not.toHaveBeenCalledWith(expect.any(Object));
   });
 
+  it('on enter key down should trigger mouse click', () => {
+    const testProps = { onSelect: jest.fn() };
+    const wrapper = render(genMenu(testProps));
+    const normalItem = wrapper.getByText('Normal');
+    const args = expect.objectContaining({
+      key: '2',
+      domEvent: expect.any(Object),
+    });
+
+    fireEvent.keyDown(normalItem, { key: 'Enter', keyCode: 13 });
+    expect(testProps.onSelect).toHaveBeenCalledWith(args);
+  });
+
   it('should show dropdown items when hover on subMenu', async () => {
     const testProps = { onSelect: jest.fn() };
     const wrapper = render(genMenu(testProps));
@@ -137,5 +151,42 @@ describe('Menu', () => {
       </Menu>,
     );
     expect(expect(wrapper.getByTestId('link')).toBeInTheDocument());
+  });
+
+  it('should add cross styles to the correct dom', () => {
+    const testClassName = 'test';
+    const testStyle = { backgroundColor: '#f8f9fa' };
+    const wrapper = render(
+      genMenu({
+        mode: 'responsive',
+        className: testClassName,
+        style: testStyle,
+      }),
+    );
+    const navEle = wrapper.getByTestId('menu');
+    const ele = wrapper.getByRole('menu');
+
+    expect(navEle).toBeInTheDocument();
+    expect(navEle).toHaveClass(testClassName);
+    expect(navEle).toHaveStyle(getStyleStr(testStyle));
+    expect(ele).toBeInTheDocument();
+    expect(ele).not.toHaveClass(testClassName);
+    expect(ele).not.toHaveStyle(getStyleStr(testStyle));
+  });
+
+  it('should display the DOM correctly in responsive mode', () => {
+    const wrapper = render(genMenu({ mode: 'responsive' }));
+    const navEle = wrapper.getByTestId('menu');
+    const ele = wrapper.getByRole('menu');
+    const buttonEle = navEle.firstElementChild as Element;
+
+    expect(buttonEle).toBeInTheDocument();
+    expect(buttonEle.tagName).toEqual('BUTTON');
+    // expect(buttonEle).not.toBeVisible();
+    // expect(getComputedStyle(buttonEle).display).toEqual('none');
+
+    fireEvent.click(buttonEle);
+
+    expect(ele).toHaveClass(`${prefixCls}-show`);
   });
 });

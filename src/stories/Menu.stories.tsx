@@ -41,3 +41,8 @@ export const VerticalMenu = MenuTemplate.bind({});
 VerticalMenu.args = {
   mode: 'vertical',
 };
+
+export const ResponsiveMenu = MenuTemplate.bind({});
+ResponsiveMenu.args = {
+  mode: 'responsive',
+};

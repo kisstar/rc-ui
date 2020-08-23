@@ -9,7 +9,8 @@ import { MenuItem as Item, MenuItemProps } from './MenuItem';
 export { default as SubMenu } from './SubMenu';
 export { default as Item } from './MenuItem';
 
-export interface MenuProps {
+export interface MenuProps
+  extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick' | 'onSelect'> {
   /** 菜单类型，现在支持垂直、水平两种 */
   mode?: MenuMode;
   /** 初始选中的菜单项 key 值 */
@@ -43,6 +44,7 @@ export const Menu: MenuType = props => {
     style,
     children,
     onSelect,
+    ...restProps
   } = props;
   const [selectedKey, setSelectedKey] = useState(defaultSelectedKey || '');
   const [shouldShow, setShouldShow] = useState(false);
@@ -94,7 +96,7 @@ export const Menu: MenuType = props => {
   return (
     <MenuContext.Provider value={{ selectedKey, onSelect: handleClick, mode: mode as MenuMode }}>
       {needResponsive ? (
-        <nav className={navClasses} style={style}>
+        <nav className={navClasses} style={style} {...restProps}>
           <button
             className={`${prefixCls}-toggler`}
             type="button"
@@ -107,7 +109,7 @@ export const Menu: MenuType = props => {
           </ul>
         </nav>
       ) : (
-        <ul role="menu" className={classes} style={style}>
+        <ul role="menu" className={classes} style={style} {...restProps}>
           {renderChild()}
         </ul>
       )}
