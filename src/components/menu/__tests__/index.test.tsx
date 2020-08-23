@@ -76,10 +76,11 @@ describe('Menu', () => {
     expect(testProps.onSelect).not.toHaveBeenCalledWith(expect.any(Object));
   });
 
-  it('on enter key down should trigger mouse click', () => {
+  it('should trigger mouse click when enter key down', () => {
     const testProps = { onSelect: jest.fn() };
     const wrapper = render(genMenu(testProps));
     const normalItem = wrapper.getByText('Normal');
+    const disabledElement = wrapper.getByText('Disabled');
     const args = expect.objectContaining({
       key: '2',
       domEvent: expect.any(Object),
@@ -87,6 +88,9 @@ describe('Menu', () => {
 
     fireEvent.keyDown(normalItem, { key: 'Enter', keyCode: 13 });
     expect(testProps.onSelect).toHaveBeenCalledWith(args);
+    testProps.onSelect.mockRestore();
+    fireEvent.keyDown(disabledElement, { key: 'Enter', keyCode: 13 });
+    expect(testProps.onSelect).not.toHaveBeenCalledWith(args);
   });
 
   it('should show dropdown items when hover on subMenu', async () => {
@@ -137,6 +141,26 @@ describe('Menu', () => {
     });
 
     fireEvent.click(subElement);
+    await wait(() => {
+      expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should show dropdown items when enter key down with mode vertical', async () => {
+    const testProps: MenuProps = {
+      mode: 'vertical',
+      onSelect: jest.fn(),
+    };
+    const wrapper = render(genMenu(testProps));
+    const subElement = wrapper.getByText('SubItems');
+
+    expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
+    fireEvent.keyDown(subElement, { key: 'Enter', keyCode: 13 });
+    await wait(() => {
+      expect(wrapper.queryByText('Second SubItem')).toBeInTheDocument();
+    });
+
+    fireEvent.keyDown(subElement, { key: 'Enter', keyCode: 13 });
     await wait(() => {
       expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
     });

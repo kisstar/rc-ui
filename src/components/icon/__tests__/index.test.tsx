@@ -30,4 +30,13 @@ describe('Icon.createFromIconfontCN()', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  const IconFont2 = createFromIconfontCN({
+    scriptUrl: ['//at.alicdn.com/t/font_xxx.js', '//at.alicdn.com/t/font_1847800_xsxhtsd2ixr.js'],
+  });
+
+  it('should support ignore load error', () => {
+    const wrapper = render(<IconFont2 type="gerenzhongxin" />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });
