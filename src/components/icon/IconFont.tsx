@@ -49,7 +49,7 @@ function createScriptUrlElements(scriptUrls: string[], index: number = 0): void 
 }
 
 export default function create<T>(options: CustomIconOptions = {}): React.FC<IconFontProps<T>> {
-  const { scriptUrl = {} } = options;
+  const { scriptUrl = '' } = options;
 
   /**
    * DOM API required, make sure in browser environment.
@@ -67,7 +67,7 @@ export default function create<T>(options: CustomIconOptions = {}): React.FC<Ico
       // 倒叙插入，为了数组覆盖顺序
       createScriptUrlElements(scriptUrl.reverse());
     } else {
-      createScriptUrlElements([scriptUrl as string]);
+      createScriptUrlElements([scriptUrl]);
     }
   }
 
