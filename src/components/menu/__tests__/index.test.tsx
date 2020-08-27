@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent, wait } from '@testing-library/react';
-import mountTest from '../../../tests/mountTest';
-import { getStyleStr } from '../../../tests/utils';
+import { getStyleStr, mountTest, expectToThrow } from '../../../tests';
 import { Menu, MenuProps } from '..';
 import { SubMenu } from '../SubMenu';
 import { MenuItem } from '../MenuItem';
@@ -44,6 +43,28 @@ describe('Menu', () => {
     expect(disabledElement).toHaveClass(`${prefixCls}-item-disabled`);
     expect(menuElement.getElementsByTagName('li').length).toEqual(4);
     expect(menuElement.getElementsByTagName('li')[0]).toHaveClass(`${prefixCls}-item`);
+  });
+
+  it("Menu's child should only be SubMenu or MenuItem", () => {
+    expectToThrow(() => {
+      render(
+        <Menu data-testid="menu">
+          <li>Menu Item</li>
+        </Menu>,
+      );
+    });
+  });
+
+  it("SubMenu's child should only be MenuItem", () => {
+    expectToThrow(() => {
+      render(
+        <Menu data-testid="menu">
+          <SubMenu title="SubItems">
+            <li>Menu Item</li>
+          </SubMenu>
+        </Menu>,
+      );
+    });
   });
 
   it('should render vertical mode when mode is set to vertical', () => {
