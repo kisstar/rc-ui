@@ -3,7 +3,7 @@ import { Menu } from '..';
 
 const { Item, SubMenu } = Menu;
 
-function NavBar() {
+function App() {
   return (
     <div className="menu-demo">
       <Menu>
@@ -76,4 +76,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default App;

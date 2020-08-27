@@ -222,3 +222,25 @@ $icon-prefix-cls: $ks-prefix + '-icon';
     }
   }
 }
+
+.#{$menu-prefix-cls}-slide-enter {
+  max-height: 0;
+}
+
+.#{$menu-prefix-cls}-slide-exit {
+  max-height: 500px;
+}
+
+.#{$menu-prefix-cls}-slide-enter-active,
+.#{$menu-prefix-cls}-slide-exit-active {
+  overflow: hidden;
+  transition: max-height 300ms ease-out;
+}
+
+.#{$menu-prefix-cls}-slide-exit-active {
+  max-height: 0;
+}
+
+.#{$menu-prefix-cls}-slide-enter-active {
+  max-height: 500px;
+}
