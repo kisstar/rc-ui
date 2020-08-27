@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CSSTransition renders correctly 1`] = `
+<CSSTransition
+  timeout={1000}
+  unmountOnExit={true}
+>
+  <div>
+    I will receive fade-* classes
+  </div>
+</CSSTransition>
+`;

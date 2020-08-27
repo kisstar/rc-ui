@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useMemo } from 'react';
+import React, { useRef, useContext, useMemo, useCallback } from 'react';
 import { CSSTransition as ReactCSSTransition } from 'react-transition-group';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 import { ConfigContext } from '../config-provider';
@@ -12,7 +12,7 @@ interface OwnProps {
   prefixCls?: string;
 }
 
-type TransitionProps = OwnProps & CSSTransitionProps;
+export type TransitionProps<T extends HTMLElement = HTMLElement> = OwnProps & CSSTransitionProps<T>;
 
 const CSSTransition: React.FC<TransitionProps> = props => {
   const {
@@ -26,6 +26,7 @@ const CSSTransition: React.FC<TransitionProps> = props => {
   } = props;
   const defaultNodeRef = useRef(null);
   const { getPrefixCls } = useContext(ConfigContext);
+
   const transitionClasses = useMemo(() => {
     if (!animation) return {};
 
@@ -46,7 +47,7 @@ const CSSTransition: React.FC<TransitionProps> = props => {
     };
   }, [animation, customizePrefixCls, getPrefixCls]);
 
-  const getChildProps = () => {
+  const getChildProps = useCallback(() => {
     const childProps = {};
     if (!nodeRef) {
       Object.assign(childProps, {
@@ -64,12 +65,12 @@ const CSSTransition: React.FC<TransitionProps> = props => {
       });
     }
     return childProps;
-  };
+  }, [timeout, animation, nodeRef]);
 
   return (
     <ReactCSSTransition
       timeout={timeout}
-      nodeRef={defaultNodeRef || nodeRef}
+      nodeRef={nodeRef || defaultNodeRef}
       classNames={animation ? transitionClasses : classNames}
       {...restProps}
     >
