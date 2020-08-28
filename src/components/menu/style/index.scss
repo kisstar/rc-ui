@@ -27,7 +27,7 @@ $icon-prefix-cls: $ks-prefix + '-icon';
   padding: 0 $menu-item-px;
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.3s ease-out;
+  transition: color 0.3s ease-out;
 
   &:hover {
     color: $menu-item-active-color;
@@ -48,8 +48,12 @@ $icon-prefix-cls: $ks-prefix + '-icon';
   border-bottom: 1px solid $menu-item-border-color;
 }
 
-// for model vertical
-&.#{$menu-prefix-cls}-vertical,
+.#{$menu-prefix-cls}-vertical {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.#{$menu-prefix-cls}-vertical,
 .#{$menu-prefix-cls}-responsive {
   flex-direction: column;
   border-right: 1px solid $menu-item-border-color;
@@ -137,7 +141,14 @@ $icon-prefix-cls: $ks-prefix + '-icon';
     left: 0;
     z-index: $zindex-dropdown;
     min-width: 100%;
+    max-height: 0;
     margin-top: $menu-drop-content-mt;
+  }
+}
+
+.#{$menu-prefix-cls}-submenu-open {
+  .#{$menu-prefix-cls}-vertical {
+    max-height: $menu-max-height;
   }
 }
 
@@ -163,8 +174,13 @@ $icon-prefix-cls: $ks-prefix + '-icon';
 }
 
 .#{$menu-prefix-cls}-responsive {
+  max-height: $menu-max-height;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+
   &:not(.#{$menu-prefix-cls}-show) {
-    display: none;
+    // display: none;
+    max-height: 0;
   }
 }
 
@@ -177,11 +193,15 @@ $icon-prefix-cls: $ks-prefix + '-icon';
     .#{$menu-prefix-cls}-responsive {
       display: flex;
       flex-direction: row;
+      max-height: $menu-max-height;
+      overflow: initial;
       border-right: 0;
     }
   }
 
   .#{$menu-prefix-cls}-responsive {
+    border-bottom: 1px solid $menu-item-border-color;
+
     .#{$menu-prefix-cls}-submenu {
       .#{$menu-prefix-cls}-vertical {
         position: absolute;
@@ -221,26 +241,4 @@ $icon-prefix-cls: $ks-prefix + '-icon';
       }
     }
   }
-}
-
-.#{$menu-prefix-cls}-slide-enter {
-  max-height: 0;
-}
-
-.#{$menu-prefix-cls}-slide-exit {
-  max-height: 500px;
-}
-
-.#{$menu-prefix-cls}-slide-enter-active,
-.#{$menu-prefix-cls}-slide-exit-active {
-  overflow: hidden;
-  transition: max-height 300ms ease-out;
-}
-
-.#{$menu-prefix-cls}-slide-exit-active {
-  max-height: 0;
-}
-
-.#{$menu-prefix-cls}-slide-enter-active {
-  max-height: 500px;
 }

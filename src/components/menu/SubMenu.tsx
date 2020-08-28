@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react';
 import classNames from 'classnames';
-import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
 import MenuContext from './MenuContext';
 import { MenuItemProps } from './MenuItem';
-import { CSSTransition } from '../transition';
 
 export interface SubMenuProps {
   /** 子菜单项值 */
@@ -14,10 +12,6 @@ export interface SubMenuProps {
   disabled?: boolean;
   /** 菜单图标 */
   icon?: React.ReactNode;
-  /** 动画的持续时间 */
-  timeout?: number;
-  /** 指定子菜单打开时动画相关的样式名称 */
-  animationClass?: string | CSSTransitionClassNames;
   rootPrefixCls?: string;
   eventKey?: string;
 }
@@ -27,17 +21,7 @@ interface SubMenuType extends React.FC<SubMenuProps> {
 }
 
 export const SubMenu: SubMenuType = props => {
-  const {
-    rootPrefixCls,
-    style,
-    className,
-    title,
-    disabled,
-    icon,
-    timeout,
-    animationClass,
-    children,
-  } = props;
+  const { rootPrefixCls, style, className, title, disabled, icon, children } = props;
   const [isOpened, setIsOpened] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const { mode, selectedKey } = useContext(MenuContext);
@@ -109,7 +93,7 @@ export const SubMenu: SubMenuType = props => {
       setIsSelected(newSelect);
     }
 
-    // Let CSSTransition decide whether to display it or not
+    // Let CSS decide whether to display it or not
     // if (!isOpened) {
     //   return null;
     // }
@@ -134,19 +118,9 @@ export const SubMenu: SubMenuType = props => {
         </span>
         <i className={`${rootPrefixCls}-submenu-arrow`} />
       </div>
-      <CSSTransition
-        in={isOpened}
-        timeout={timeout as number}
-        classNames={animationClass || `${rootPrefixCls}-slide`}
-      >
-        {renderChild()}
-      </CSSTransition>
+      {renderChild()}
     </li>
   );
-};
-
-SubMenu.defaultProps = {
-  timeout: 300,
 };
 
 SubMenu.displayName = 'SubMenu';
