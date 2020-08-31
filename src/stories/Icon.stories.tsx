@@ -10,9 +10,7 @@ export default {
   argTypes: {
     icon: {
       description: '图标名称',
-      control: {
-        type: null,
-      },
+      control: 'text',
     },
   },
 } as Meta;

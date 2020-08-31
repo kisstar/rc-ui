@@ -8,13 +8,26 @@ type AnimationName = string;
 type AnimationTuple = [AnimationName, AnimationName];
 
 interface OwnProps {
+  timeout?: number;
+  in?: boolean;
+  /** 指定在进场和退场时使用的动画，如果指定字符串则进场和退场将使用相同的动画，你也可以使用数组为两者指定不同的动画，
+   * 值为 `animate.css` 中包含的动画名称，注意不需要前缀。
+   */
   animation?: AnimationName | AnimationTuple;
+  unmountOnExit?: boolean;
   prefixCls?: string;
 }
 
 export type TransitionProps<T extends HTMLElement = HTMLElement> = OwnProps & CSSTransitionProps<T>;
 
-const CSSTransition: React.FC<TransitionProps> = props => {
+/**
+ * CSSTransition 主要是对 `react-transition-group` 库中 CSSTransition 组件的二次封装。
+ *
+ * 新版的 CSSTransition 支持所有原先的功能，同时还结合 `animate.css` 提供默认的动画效果。
+ *
+ * 以下是几个常用属性的简单说明，更多信息可参考 [React Transition Group](https://reactcommunity.org/react-transition-group/)。
+ */
+export const CSSTransition: React.FC<TransitionProps> = props => {
   const {
     children,
     classNames,

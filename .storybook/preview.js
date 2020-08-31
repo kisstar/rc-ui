@@ -6,7 +6,7 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   options: {
     storySort: {
-      order: ['通用', '导航', '其它'],
+      order: ['RcUI', '通用', '导航', '动画', '其它'],
     },
   },
 };

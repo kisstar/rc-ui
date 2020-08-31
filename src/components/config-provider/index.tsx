@@ -13,7 +13,7 @@ export interface ConfigProviderProps {
 /**
  * 为组件提供统一的全局化配置。
  *
- * ConfigProvider 使用 React 的 context 特性，只需在应用外围包裹一次即可全局生效。
+ * ConfigProvider 使用 React 的 `context` 特性，只需在应用外围包裹一次即可全局生效。
  */
 export const ConfigProvider: React.FC<ConfigProviderProps> = props => {
   const getPrefixClsWrapper = (context: ConfigConsumerProps) => {
