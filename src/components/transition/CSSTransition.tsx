@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useMemo, useCallback } from 'react';
+import React, { useRef, useContext, useMemo, useCallback, ReactElement } from 'react';
 import { CSSTransition as ReactCSSTransition } from 'react-transition-group';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 import { ConfigContext } from '../config-provider';
@@ -60,25 +60,29 @@ export const CSSTransition: React.FC<TransitionProps> = props => {
     };
   }, [animation, customizePrefixCls, getPrefixCls]);
 
-  const getChildProps = useCallback(() => {
-    const childProps = {};
-    if (!nodeRef) {
-      Object.assign(childProps, {
-        ref: defaultNodeRef,
-      });
-    }
-    if (animation) {
-      const duration = `${timeout}ms`;
+  const getChildProps = useCallback(
+    oriChildProps => {
+      const childProps = {};
+      if (!nodeRef) {
+        Object.assign(childProps, {
+          ref: defaultNodeRef,
+        });
+      }
+      if (animation) {
+        const duration = `${timeout}ms`;
 
-      Object.assign(childProps, {
-        style: {
-          animationDuration: duration,
-          WebkitAnimationDuration: duration,
-        },
-      });
-    }
-    return childProps;
-  }, [timeout, animation, nodeRef]);
+        Object.assign(childProps, {
+          style: {
+            ...oriChildProps.style,
+            animationDuration: duration,
+            WebkitAnimationDuration: duration,
+          },
+        });
+      }
+      return childProps;
+    },
+    [timeout, animation, nodeRef],
+  );
 
   return (
     <ReactCSSTransition
@@ -88,8 +92,8 @@ export const CSSTransition: React.FC<TransitionProps> = props => {
       {...restProps}
     >
       {React.cloneElement(
-        children as React.FunctionComponentElement<TransitionProps>,
-        getChildProps(),
+        children as ReactElement,
+        getChildProps((children as ReactElement).props),
       )}
     </ReactCSSTransition>
   );

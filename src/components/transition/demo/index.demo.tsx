@@ -15,7 +15,7 @@ function App() {
         <div>I will receive fade-* classes</div>
       </CSSTransition>
       <CSSTransition in={showBox} timeout={1000} animation={['fadeIn', 'fadeOut']}>
-        <div className="box" />
+        <div className="box" style={{ border: '1px solid #f00' }} />
       </CSSTransition>
     </>
   );
