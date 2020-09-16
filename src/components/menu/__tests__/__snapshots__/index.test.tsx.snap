@@ -19,6 +19,7 @@ exports[`Menu renders correctly 1`] = `
     Disabled
   </MenuItem>
   <SubMenu
+    data-testid="submenu"
     title="SubItems"
   >
     <MenuItem>

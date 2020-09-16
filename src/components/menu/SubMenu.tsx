@@ -13,7 +13,6 @@ export interface SubMenuProps {
   /** 菜单图标 */
   icon?: React.ReactNode;
   rootPrefixCls?: string;
-  eventKey?: string;
 }
 
 interface SubMenuType extends React.FC<SubMenuProps> {
@@ -21,7 +20,7 @@ interface SubMenuType extends React.FC<SubMenuProps> {
 }
 
 export const SubMenu: SubMenuType = props => {
-  const { rootPrefixCls, style, className, title, disabled, icon, children } = props;
+  const { rootPrefixCls, style, className, title, disabled, icon, children, ...restPropse } = props;
   const [isOpened, setIsOpened] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const { mode, selectedKey } = useContext(MenuContext);
@@ -102,7 +101,7 @@ export const SubMenu: SubMenuType = props => {
   };
 
   return (
-    <li style={style} className={classes}>
+    <li style={style} className={classes} {...restPropse}>
       <div
         role="button"
         tabIndex={-1}

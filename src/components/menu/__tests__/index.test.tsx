@@ -14,7 +14,7 @@ const genMenu = (props?: MenuProps) => {
       <MenuItem key="3" disabled>
         Disabled
       </MenuItem>
-      <SubMenu title="SubItems">
+      <SubMenu data-testid="submenu" title="SubItems">
         <MenuItem key="4">First SubItem</MenuItem>
         <MenuItem key="5">Second SubItem</MenuItem>
       </SubMenu>
@@ -22,7 +22,9 @@ const genMenu = (props?: MenuProps) => {
   );
 };
 const prefixCls = 'ks-menu';
-const activeClass = `${prefixCls}-item-selected`;
+const openClass = `${prefixCls}-submenu-open`;
+const itemActiveClass = `${prefixCls}-item-selected`;
+const subMenuActiveClass = `${prefixCls}-submenu-selected`;
 
 describe('Menu', () => {
   it('renders correctly', () => {
@@ -33,15 +35,15 @@ describe('Menu', () => {
 
   it('should render correct Menu and MenuItem based on the specified props', () => {
     const wrapper = render(genMenu());
-    const menuElement = wrapper.getByRole('menu');
+    const menuElement = wrapper.getByTestId('menu');
     const activeElement = wrapper.getByText('Active');
     const disabledElement = wrapper.getByText('Disabled');
 
     expect(menuElement).toBeInTheDocument();
     expect(menuElement).toHaveClass(`${prefixCls} ${prefixCls}-horizontal`);
-    expect(activeElement).toHaveClass(activeClass);
+    expect(activeElement).toHaveClass(itemActiveClass);
     expect(disabledElement).toHaveClass(`${prefixCls}-item-disabled`);
-    expect(menuElement.getElementsByTagName('li').length).toEqual(4);
+    expect(menuElement.getElementsByTagName('li').length).toEqual(6); // two items in the drop-down menu are hidden
     expect(menuElement.getElementsByTagName('li')[0]).toHaveClass(`${prefixCls}-item`);
   });
 
@@ -69,7 +71,7 @@ describe('Menu', () => {
 
   it('should render vertical mode when mode is set to vertical', () => {
     const wrapper = render(genMenu({ mode: 'vertical' }));
-    const menuElement = wrapper.getByRole('menu');
+    const menuElement = wrapper.getByTestId('menu');
 
     expect(menuElement).toBeInTheDocument();
     expect(menuElement).toHaveClass(`${prefixCls} ${prefixCls}-vertical`);
@@ -87,13 +89,13 @@ describe('Menu', () => {
     });
 
     fireEvent.click(normalItem);
-    expect(normalItem).toHaveClass(activeClass);
-    expect(activeElement).not.toHaveClass(activeClass);
+    expect(normalItem).toHaveClass(itemActiveClass);
+    expect(activeElement).not.toHaveClass(itemActiveClass);
     expect(testProps.onSelect).toHaveBeenCalledWith(args);
     testProps.onSelect.mockRestore();
     fireEvent.click(disabledElement);
-    expect(normalItem).toHaveClass(activeClass);
-    expect(disabledElement).not.toHaveClass(activeClass);
+    expect(normalItem).toHaveClass(itemActiveClass);
+    expect(disabledElement).not.toHaveClass(itemActiveClass);
     expect(testProps.onSelect).not.toHaveBeenCalledWith(expect.any(Object));
   });
 
@@ -117,22 +119,24 @@ describe('Menu', () => {
   it('should show dropdown items when hover on subMenu', async () => {
     const testProps = { onSelect: jest.fn() };
     const wrapper = render(genMenu(testProps));
-    const subElement = wrapper.getByText('SubItems');
+    const dropBtn = wrapper.getByRole('button');
+    const dropMenu = wrapper.getByTestId('submenu');
 
-    expect(wrapper.queryByText('First SubItem')).not.toBeInTheDocument();
-    fireEvent.mouseEnter(subElement);
+    expect(dropMenu).not.toHaveClass(openClass);
+    fireEvent.mouseEnter(dropBtn);
     await wait(() => {
       // notice that setTimeout was used in the component before
-      expect(wrapper.queryByText('First SubItem')).toBeInTheDocument();
+      expect(dropMenu).toHaveClass(openClass);
     });
     fireEvent.click(wrapper.getByText('First SubItem'));
     expect(testProps.onSelect).toHaveBeenCalledWith({
       key: '4',
       domEvent: expect.any(Object),
     });
-    fireEvent.mouseLeave(subElement);
+    fireEvent.mouseLeave(dropBtn);
     await wait(() => {
-      expect(wrapper.queryByText('First SubItem')).not.toBeInTheDocument();
+      expect(dropMenu).toHaveClass(subMenuActiveClass);
+      expect(dropMenu).not.toHaveClass(openClass);
     });
   });
 
@@ -142,18 +146,15 @@ describe('Menu', () => {
       onSelect: jest.fn(),
     };
     const wrapper = render(genMenu(testProps));
-    const subElement = wrapper.getByText('SubItems');
+    const dropBtn = wrapper.getByRole('button');
+    const dropMenu = wrapper.getByTestId('submenu');
 
-    expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
-    fireEvent.mouseEnter(subElement);
-    await wait(() => {
-      expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
-    });
+    expect(dropMenu).not.toHaveClass(openClass);
+    fireEvent.mouseEnter(dropBtn);
+    expect(dropMenu).not.toHaveClass(openClass);
 
-    fireEvent.click(subElement);
-    await wait(() => {
-      expect(wrapper.queryByText('Second SubItem')).toBeInTheDocument();
-    });
+    fireEvent.click(dropBtn);
+    expect(dropMenu).toHaveClass(openClass);
 
     fireEvent.click(wrapper.getByText('Second SubItem'));
     expect(testProps.onSelect).toHaveBeenCalledWith({
@@ -161,10 +162,9 @@ describe('Menu', () => {
       domEvent: expect.any(Object),
     });
 
-    fireEvent.click(subElement);
-    await wait(() => {
-      expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
-    });
+    fireEvent.click(dropBtn);
+    expect(dropMenu).toHaveClass(subMenuActiveClass);
+    expect(dropMenu).not.toHaveClass(openClass);
   });
 
   it('should show dropdown items when enter key down with mode vertical', async () => {
@@ -173,18 +173,17 @@ describe('Menu', () => {
       onSelect: jest.fn(),
     };
     const wrapper = render(genMenu(testProps));
-    const subElement = wrapper.getByText('SubItems');
+    const dropBtn = wrapper.getByRole('button');
+    const dropMenu = wrapper.getByTestId('submenu');
 
-    expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
-    fireEvent.keyDown(subElement, { key: 'Enter', keyCode: 13 });
-    await wait(() => {
-      expect(wrapper.queryByText('Second SubItem')).toBeInTheDocument();
-    });
+    // it is not displayed by default
+    expect(dropMenu).not.toHaveClass(openClass);
 
-    fireEvent.keyDown(subElement, { key: 'Enter', keyCode: 13 });
-    await wait(() => {
-      expect(wrapper.queryByText('Second SubItem')).not.toBeInTheDocument();
-    });
+    fireEvent.keyDown(dropBtn, { key: 'Enter', keyCode: 13 });
+    expect(dropMenu).toHaveClass(openClass);
+
+    fireEvent.keyDown(dropBtn, { key: 'Enter', keyCode: 13 });
+    expect(dropMenu).not.toHaveClass(openClass);
   });
 
   it('MenuItem should render icon and icon should be the first child when icon exists', () => {
@@ -209,7 +208,7 @@ describe('Menu', () => {
       }),
     );
     const navEle = wrapper.getByTestId('menu');
-    const ele = wrapper.getByRole('menu');
+    const ele = wrapper.getAllByRole('menu')[0];
 
     expect(navEle).toBeInTheDocument();
     expect(navEle).toHaveClass(testClassName);
@@ -222,16 +221,17 @@ describe('Menu', () => {
   it('should display the DOM correctly in responsive mode', () => {
     const wrapper = render(genMenu({ mode: 'responsive' }));
     const navEle = wrapper.getByTestId('menu');
-    const ele = wrapper.getByRole('menu');
+
+    // it is vulnerable to rely heavily on the current DOM structure
+    const ele = wrapper.getAllByRole('menu')[0];
     const buttonEle = navEle.firstElementChild as Element;
 
     expect(buttonEle).toBeInTheDocument();
     expect(buttonEle.tagName).toEqual('BUTTON');
-    // expect(buttonEle).not.toBeVisible();
+    // the value of display depends on the size of the test window
     // expect(getComputedStyle(buttonEle).display).toEqual('none');
 
     fireEvent.click(buttonEle);
-
     expect(ele).toHaveClass(`${prefixCls}-show`);
   });
 });

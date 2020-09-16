@@ -84,7 +84,6 @@ export const Menu: MenuType = props => {
       if (displayName === 'SubMenu') {
         const subChildElement = child as React.FunctionComponentElement<SubMenuProps>;
         return React.cloneElement(subChildElement, {
-          eventKey: strKey,
           rootPrefixCls: prefixCls,
         });
       }
