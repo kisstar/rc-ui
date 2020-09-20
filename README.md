@@ -8,22 +8,22 @@ UI component library built with React Hooks.
 
 ```bash
 # use npm
-npm install @ks/rc-ui
+npm install @kisstar/rc-ui
 
 # or use yarn
-yarn add @ks/rc-ui
+yarn add @kisstar/rc-ui
 ```
 
 ## Usage
 
 ```js
 // introduce components on demand
-import { Button } from '@ks/rc-ui';
+import { Button } from '@kisstar/rc-ui';
 
 const App = () => <Button type="primary">CLICK ME</Button>;
 
 // and import style manually
-import '@ks/rc-ui/dist/index.css';
+import '@kisstar/rc-ui/dist/index.css';
 ```
 
 ## Development scripts
@@ -52,5 +52,5 @@ yarn commit
 [codecov_url]: https://codecov.io/gh/kisstar/rc-ui
 [fossa_imge]: https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui.svg?type=shield
 [fossa_url]: https://app.fossa.com/projects/git%2Bgithub.com%2Fkisstar%2Frc-ui?ref=badge_shield
-[npm_image]: https://img.shields.io/npm/v/@ks/rc-ui
-[npm_url]: http://npmjs.org/package/@ks/rc-ui
+[npm_image]: https://img.shields.io/npm/v/@kisstar/rc-ui
+[npm_url]: http://npmjs.org/package/@kisstar/rc-ui

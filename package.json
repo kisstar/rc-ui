@@ -1,17 +1,16 @@
 {
-  "name": "@ks/rc-ui",
-  "version": "0.1.0",
+  "name": "@kisstar/rc-ui",
+  "version": "0.2.0",
   "private": false,
   "description": "UI component library built with React Hooks.",
   "title": "RC UI",
   "keywords": [
     "frontend",
-    "react",
-    "component",
-    "components",
-    "ui",
+    "kisstar",
     "rc-ui",
-    "@ks/rc-ui"
+    "react",
+    "ui",
+    "component"
   ],
   "homepage": "https://dongwanhong.gitee.io/rc-ui",
   "repository": {
